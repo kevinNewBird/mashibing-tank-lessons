@@ -17,6 +17,10 @@ public class TankFrame extends Frame {
 
     int x = 200, y = 200;
 
+    Dir dir = Dir.DOWN;
+
+    final int SPEED = 10;
+
 
     public TankFrame() throws HeadlessException {
         // 2.设置窗口参数
@@ -50,26 +54,20 @@ public class TankFrame extends Frame {
 
         g.setColor(Color.BLUE);
         g.fillRect(x, y, 50, 50);
-        if (bU && bR) {
-            x += 10;
-            y -= 10;
-        } else if (bR && bD) {
-            x += 10;
-            y += 10;
-        } else if (bD && bL) {
-            x -= 10;
-            y += 10;
-        } else if (bL && bU) {
-            x -= 10;
-            y -= 10;
-        } else if (bU) {
-            y -= 10;
-        } else if (bR) {
-            x += 10;
-        } else if (bD) {
-            y += 10;
-        } else if (bL) {
-            x -= 10;
+
+        switch (dir) {
+            case RIGHT:
+                x += SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            case LEFT:
+                x -= SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
         }
 
 
@@ -78,12 +76,13 @@ public class TankFrame extends Frame {
         System.out.println("paint");
     }
 
-    public boolean bL = false;
-    public boolean bU = false;
-    public boolean bR = false;
-    public boolean bD = false;
 
     public class MyKeyListener extends KeyAdapter {
+
+        boolean bL = false;
+        boolean bU = false;
+        boolean bR = false;
+        boolean bD = false;
 
         // 1.键按下
         @Override
@@ -105,11 +104,7 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-
+            setMainTankDir();
         }
 
         // 2.键释放
@@ -132,6 +127,14 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
+            setMainTankDir();
+        }
+
+        private void setMainTankDir() {
+            if (bL) dir = Dir.LEFT;
+            if (bU) dir = Dir.UP;
+            if (bR) dir = Dir.RIGHT;
+            if (bD) dir = Dir.DOWN;
         }
     }
 
