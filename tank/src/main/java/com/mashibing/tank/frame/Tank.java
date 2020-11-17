@@ -40,4 +40,8 @@ public class Tank {
                 break;
         }
     }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
 }
