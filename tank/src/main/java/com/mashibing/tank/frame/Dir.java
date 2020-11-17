@@ -9,3 +9,4 @@ package com.mashibing.tank.frame;
 public enum Dir {
     LEFT,UP,RIGHT,DOWN
 }
+

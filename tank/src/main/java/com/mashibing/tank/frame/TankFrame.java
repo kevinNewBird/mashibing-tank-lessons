@@ -15,11 +15,7 @@ import java.lang.reflect.Field;
  ***********************/
 public class TankFrame extends Frame {
 
-    int x = 200, y = 200;
-
-    Dir dir = Dir.DOWN;
-
-    final int SPEED = 10;
+    Tank mainTank = new Tank(200, 200, 10, Dir.DOWN);
 
 
     public TankFrame() throws HeadlessException {
@@ -51,29 +47,9 @@ public class TankFrame extends Frame {
     //窗口需要重新绘制的时候,自动调用该方法(1.窗口第一次显示的时候,2.窗口被别人盖住又显示出来的时候,3.窗口改变大小的时候)
     @Override
     public void paint(Graphics g) {
-
-        g.setColor(Color.BLUE);
-        g.fillRect(x, y, 50, 50);
-
-        switch (dir) {
-            case RIGHT:
-                x += SPEED;
-                break;
-            case DOWN:
-                y += SPEED;
-                break;
-            case LEFT:
-                x -= SPEED;
-                break;
-            case UP:
-                y -= SPEED;
-                break;
-        }
-
-
-//        x += 10;
-//        y += 10;
-        System.out.println("paint");
+        // tip: 面向对象的思维:应该是将画笔递给坦克,坦克最知道该如何移动
+        // ,而不是把tank的属性获取到再去设置
+        mainTank.paint(g);
     }
 
 
