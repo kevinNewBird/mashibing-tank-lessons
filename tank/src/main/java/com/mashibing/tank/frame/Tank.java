@@ -10,9 +10,20 @@ import java.awt.*;
  ***********************/
 public class Tank {
 
-    int x, y;
-    int speed = 10;
-    Dir dir = Dir.DOWN;
+    private int x, y;
+    private int speed = 10;
+    private Dir dir = Dir.DOWN;
+
+    // 坦克的状态:禁止false/移动move;这个不应该是一个方向,仅仅表示坦克的一个运动状态
+    private boolean moving = false;
+
+
+
+    public Tank(int x, int y, Dir dir) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+    }
 
     public Tank(int x, int y, int speed, Dir dir) {
         this.x = x;
@@ -24,6 +35,13 @@ public class Tank {
     public void paint(Graphics g) {
         g.setColor(Color.BLUE);
         g.fillRect(x, y, 50, 50);
+
+        move();
+
+    }
+
+    private void move() {
+        if (!moving) return;
 
         switch (dir) {
             case RIGHT:
@@ -43,5 +61,13 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 }
