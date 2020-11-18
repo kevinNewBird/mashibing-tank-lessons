@@ -17,6 +17,8 @@ public class TankFrame extends Frame {
 
     Tank mainTank = new Tank(200, 200, 10, Dir.DOWN);
 
+    Bullet b = new Bullet(200, 200, Dir.DOWN);
+
 
     public TankFrame() throws HeadlessException {
         // 2.设置窗口参数
@@ -50,6 +52,7 @@ public class TankFrame extends Frame {
         // tip: 面向对象的思维:应该是将画笔递给坦克,坦克最知道该如何移动
         // ,而不是把tank的属性获取到再去设置
         mainTank.paint(g);
+        b.paint(g);
     }
 
 
