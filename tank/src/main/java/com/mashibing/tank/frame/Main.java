@@ -1,5 +1,7 @@
 package com.mashibing.tank.frame;
 
+import java.io.IOException;
+import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 /***********************
@@ -10,7 +12,9 @@ import java.util.concurrent.TimeUnit;
  ***********************/
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IOException {
+
+
         TankFrame tankFrame = new TankFrame();
         while (true) {
             TimeUnit.MILLISECONDS.sleep(50);
@@ -18,4 +22,5 @@ public class Main {
             tankFrame.repaint();
         }
     }
+
 }
