@@ -5,6 +5,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.lang.reflect.Field;
 
 /***********************
@@ -15,15 +16,20 @@ import java.lang.reflect.Field;
  ***********************/
 public class TankFrame extends Frame {
 
+    //窗口宽度
+    private static final int GAME_WIDTH = 800;
+    //窗口高度
+    private static final int GAME_HEIGHT = 600;
+
     Tank mainTank = new Tank(200, 200, 10, Dir.DOWN);
 
-    Bullet b = new Bullet(200, 200, Dir.DOWN);
+    Bullet b = new Bullet(300, 200, Dir.DOWN);
 
 
     public TankFrame() throws HeadlessException {
         // 2.设置窗口参数
         // 2.1 设置窗口大小
-        setSize(800, 600);
+        setSize(GAME_WIDTH, GAME_HEIGHT);
         // 2.2 设置窗口是否可改变大小
         setResizable(true);
         // 2.3 设置窗口名
@@ -44,6 +50,27 @@ public class TankFrame extends Frame {
                 System.exit(0);
             }
         });
+    }
+
+    //定义一个图片
+    Image offScreenImage = null;
+
+    // 用双缓冲解决闪烁问题
+    @Override
+    public void update(Graphics g) {
+        if (offScreenImage == null) {
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
+        }
+        //将图片渲染完成,整体输出到客户显示界面,从而达到双缓冲的效果:https://blog.csdn.net/jxw167/article/details/72157154
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color c = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        gOffScreen.setColor(c);
+        //开始真正的输出图片的描绘
+        paint(gOffScreen);
+        //图片描绘完成后,完整的输出到显示窗口
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     //窗口需要重新绘制的时候,自动调用该方法(1.窗口第一次显示的时候,2.窗口被别人盖住又显示出来的时候,3.窗口改变大小的时候)
@@ -79,6 +106,10 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = true;
+                    break;
+                case KeyEvent.VK_SPACE:
+                    b = new Bullet(300, 200, Dir.DOWN);
+                    b.setShoot(true);
                     break;
                 default:
                     break;
@@ -120,7 +151,6 @@ public class TankFrame extends Frame {
                 if (bR) mainTank.setDir(Dir.RIGHT);
                 if (bD) mainTank.setDir(Dir.DOWN);
             }
-
 
         }
     }

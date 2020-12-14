@@ -21,7 +21,10 @@ public class Bullet {
     private Dir dir;
 
     //子弹速度
-    private final int SPEED = 10;
+    private final int SPEED = 1;
+
+    //是否发射
+    private boolean isShoot = false;
 
     public Bullet(int x,int y, Dir dir) {
         this.x = x;
@@ -30,12 +33,19 @@ public class Bullet {
     }
 
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(x,y,WIDTH,HEIGHT);
-        g.setColor(c);
+        if (isShoot) {
+            Color c = g.getColor();
+            g.setColor(Color.RED);
+            g.fillOval(x,y,WIDTH,HEIGHT);
+            g.setColor(c);
 
-        move();
+            move();
+        }
+
+    }
+
+    public void setShoot(boolean shoot) {
+        isShoot = shoot;
     }
 
     private void move() {
