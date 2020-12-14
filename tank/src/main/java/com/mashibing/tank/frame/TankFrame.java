@@ -5,8 +5,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 /***********************
  * Description: 继承frame窗口类 <BR>
@@ -17,13 +17,16 @@ import java.lang.reflect.Field;
 public class TankFrame extends Frame {
 
     //窗口宽度
-    private static final int GAME_WIDTH = 800;
+    public static final int GAME_WIDTH = 800;
     //窗口高度
-    private static final int GAME_HEIGHT = 600;
+    public static final int GAME_HEIGHT = 600;
 
-    Tank mainTank = new Tank(200, 200, 10, Dir.DOWN);
+    Tank mainTank = new Tank(200, 200, 10, Dir.DOWN, this);
 
-    Bullet b = new Bullet(300, 200, Dir.DOWN);
+    //子弹容器,实现多个字段的输出
+    java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
+
+    Bullet b = new Bullet(300, 200, Dir.DOWN, this);
 
 
     public TankFrame() throws HeadlessException {
@@ -55,7 +58,7 @@ public class TankFrame extends Frame {
     //定义一个图片
     Image offScreenImage = null;
 
-    // 用双缓冲解决闪烁问题
+    // 用双缓冲解决闪烁问题:在paint方法之前调用(repaint->update->paint)
     @Override
     public void update(Graphics g) {
         if (offScreenImage == null) {
@@ -76,10 +79,38 @@ public class TankFrame extends Frame {
     //窗口需要重新绘制的时候,自动调用该方法(1.窗口第一次显示的时候,2.窗口被别人盖住又显示出来的时候,3.窗口改变大小的时候)
     @Override
     public void paint(Graphics g) {
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.drawString("子弹数量:" + bulletContainer.size(), 30, 50);
+        g.setColor(c);
         // tip: 面向对象的思维:应该是将画笔递给坦克,坦克最知道该如何移动
         // ,而不是把tank的属性获取到再去设置
         mainTank.paint(g);
-        b.paint(g);
+/*        bulletContainer.forEach(bullet -> {
+            //思考问题: 打出去的子弹是否该移出容器? 应该怎样移出容器?
+            //ans:1.不可以,因为每次都是重画窗口,如果移出会导致子弹消失;
+            // 2.如果不移出,就需要考虑内存的优化,集合不可一直增大
+            bullet.paint(g);
+            if (bullet.getX() > this.GAME_WIDTH || bullet.getY() > this.GAME_HEIGHT) {
+                bulletContainer.remove(bullet);
+            }
+        });*/
+        // 1.可行解决方案一
+/*        ListIterator<Bullet> iterator = bulletContainer.listIterator();
+        while (iterator.hasNext()) {
+            Bullet bullet = iterator.next();
+            bullet.paint(g);
+            if (bullet.getX() > this.GAME_WIDTH || bullet.getY() > this.GAME_HEIGHT) {
+                iterator.remove();
+            }
+
+        }*/
+        // 2.可行解决方案二:
+        for (int i = 0; i < bulletContainer.size(); i++) {
+            bulletContainer.get(i).paint(g);
+
+        }
+
     }
 
 
@@ -107,10 +138,6 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_DOWN:
                     bD = true;
                     break;
-                case KeyEvent.VK_SPACE:
-                    b = new Bullet(300, 200, Dir.DOWN);
-                    b.setShoot(true);
-                    break;
                 default:
                     break;
             }
@@ -133,6 +160,10 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = false;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    mainTank.fire();
+                    bulletContainer.add(b);
                     break;
                 default:
                     break;

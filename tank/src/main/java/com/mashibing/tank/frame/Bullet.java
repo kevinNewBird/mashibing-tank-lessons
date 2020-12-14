@@ -12,8 +12,9 @@ import java.awt.*;
 public class Bullet {
 
 
-    private static final int WIDTH = 10;
-    private static final int HEIGHT = 10;
+    private static final int WIDTH = 30;
+    private static final int HEIGHT = 30;
+    private TankFrame tf;
     //子弹位置
     private int x, y;
 
@@ -21,31 +22,34 @@ public class Bullet {
     private Dir dir;
 
     //子弹速度
-    private final int SPEED = 1;
+    private final int SPEED = 10;
 
-    //是否发射
-    private boolean isShoot = false;
+    private boolean live = true;
 
-    public Bullet(int x,int y, Dir dir) {
+    public boolean isLive() {
+        return live;
+    }
+
+    public Bullet(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
+
 
     public void paint(Graphics g) {
-        if (isShoot) {
-            Color c = g.getColor();
-            g.setColor(Color.RED);
-            g.fillOval(x,y,WIDTH,HEIGHT);
-            g.setColor(c);
-
-            move();
+        if (!live) {
+            tf.bulletContainer.remove(this);
         }
 
-    }
+        Color c = g.getColor();
+        g.setColor(Color.RED);
+        g.fillOval(x, y, WIDTH, HEIGHT);
+        g.setColor(c);
 
-    public void setShoot(boolean shoot) {
-        isShoot = shoot;
+        move();
+
     }
 
     private void move() {
@@ -62,6 +66,9 @@ public class Bullet {
             case DOWN:
                 y += SPEED;
                 break;
+        }
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+            this.live = false;
         }
     }
 

@@ -17,19 +17,23 @@ public class Tank {
     // 坦克的状态:禁止false/移动move;这个不应该是一个方向,仅仅表示坦克的一个运动状态
     private boolean moving = false;
 
+    //面向对象思想:保证这个类持有窗口类的引用
+    private TankFrame tf = null;
 
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tf = tf;
     }
 
-    public Tank(int x, int y, int speed, Dir dir) {
+    public Tank(int x, int y, int speed, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.speed = speed;
+        this.tf = tf;
     }
 
     public void paint(Graphics g) {
@@ -69,5 +73,18 @@ public class Tank {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    /**
+     * Description: 坦克发射子弹方法 <BR>
+     * tip:这个子弹的方向同坦克的运动方向一致, 但是怎么把这颗子弹交给TankFrame对象呢?
+     * ans:面向对象思路,那就是这个类必须持有TankFrame的引用
+     *
+     * @param :
+     * @return
+     * @author zhao.song    2020/12/14 11:06
+     */
+    public void fire() {
+        this.tf.b = new Bullet(this.x, this.y, this.dir,this.tf);
     }
 }
