@@ -26,7 +26,7 @@ public class TankFrame extends Frame {
     //子弹容器,实现多个字段的输出
     java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
 
-    Bullet b = new Bullet(300, 200, Dir.DOWN, this);
+    Bullet b = new Bullet(200, 200, Dir.DOWN, this);
 
 
     public TankFrame() throws HeadlessException {

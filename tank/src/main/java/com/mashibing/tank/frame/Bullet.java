@@ -12,8 +12,11 @@ import java.awt.*;
 public class Bullet {
 
 
-    private static final int WIDTH = 30;
-    private static final int HEIGHT = 30;
+    public static final int UD_WIDTH = ResourceMgr.bulletD.getWidth();
+    public static final int UD_HEIGHT = ResourceMgr.bulletD.getHeight();
+    public static final int LR_WIDTH = ResourceMgr.bulletL.getWidth();
+    public static final int LR_HEIGHT = ResourceMgr.bulletR.getHeight();
+
     private TankFrame tf;
     //子弹位置
     private int x, y;
@@ -58,16 +61,28 @@ public class Bullet {
     private void drawAppearance(Graphics g) {
         switch (dir) {
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                g.drawImage(ResourceMgr.bulletR
+                        , Bullet.LR_WIDTH + x
+                        , (Tank.HEIGHT - Bullet.LR_HEIGHT) / 2 + y
+                        , null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                g.drawImage(ResourceMgr.bulletD,
+                        (Tank.WIDTH - Bullet.UD_WIDTH) / 2 + x
+                        , Tank.HEIGHT + y
+                        , null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                g.drawImage(ResourceMgr.bulletL
+                        , x - Bullet.LR_WIDTH
+                        , (Tank.HEIGHT - Bullet.LR_HEIGHT) / 2 + y
+                        , null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                g.drawImage(ResourceMgr.bulletU
+                        , x + (Tank.WIDTH - Bullet.UD_WIDTH) / 2
+                        , y - Bullet.UD_HEIGHT
+                        , null);
                 break;
         }
     }
