@@ -25,7 +25,7 @@ public class Bullet {
     private Dir dir;
 
     //子弹速度
-    private final int SPEED = 10;
+    private final int SPEED = 5;
 
     private boolean live = true;
 
@@ -62,25 +62,25 @@ public class Bullet {
         switch (dir) {
             case RIGHT:
                 g.drawImage(ResourceMgr.bulletR
-                        , Bullet.LR_WIDTH + x
-                        , (Tank.HEIGHT - Bullet.LR_HEIGHT) / 2 + y
+                        , Tank.LR_WIDTH + x
+                        , (Tank.LR_HEIGHT - Bullet.LR_HEIGHT) / 2 + y
                         , null);
                 break;
             case DOWN:
                 g.drawImage(ResourceMgr.bulletD,
-                        (Tank.WIDTH - Bullet.UD_WIDTH) / 2 + x
-                        , Tank.HEIGHT + y
+                        (Tank.UD_WIDTH - Bullet.UD_WIDTH) / 2 + x
+                        , Tank.UD_HEIGHT + y
                         , null);
                 break;
             case LEFT:
                 g.drawImage(ResourceMgr.bulletL
                         , x - Bullet.LR_WIDTH
-                        , (Tank.HEIGHT - Bullet.LR_HEIGHT) / 2 + y
+                        , (Tank.LR_HEIGHT - Bullet.LR_HEIGHT) / 2 + y
                         , null);
                 break;
             case UP:
                 g.drawImage(ResourceMgr.bulletU
-                        , x + (Tank.WIDTH - Bullet.UD_WIDTH) / 2
+                        , x + (Tank.UD_WIDTH - Bullet.UD_WIDTH) / 2
                         , y - Bullet.UD_HEIGHT
                         , null);
                 break;

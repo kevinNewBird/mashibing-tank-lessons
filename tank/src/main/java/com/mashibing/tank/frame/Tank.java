@@ -10,8 +10,10 @@ import java.awt.*;
  ***********************/
 public class Tank {
 
-    public static final int WIDTH = ResourceMgr.tankD.getWidth();
-    public static final int HEIGHT = ResourceMgr.tankD.getHeight();
+    public static final int UD_WIDTH = ResourceMgr.tankD.getWidth();
+    public static final int UD_HEIGHT = ResourceMgr.tankD.getHeight();
+    public static final int LR_WIDTH = ResourceMgr.tankL.getWidth();
+    public static final int LR_HEIGHT = ResourceMgr.tankL.getHeight();
 
     private int x, y;
     private int speed = 10;
