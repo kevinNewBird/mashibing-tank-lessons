@@ -30,7 +30,7 @@ public class Bullet {
         return live;
     }
 
-    public Bullet(int x, int y, Dir dir,TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -43,13 +43,33 @@ public class Bullet {
             tf.bulletContainer.remove(this);
         }
 
-        Color c = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(x, y, WIDTH, HEIGHT);
-        g.setColor(c);
-
+        drawAppearance(g);
         move();
 
+    }
+
+    /**
+     * Description: 描绘并美化tank的外观 <BR>
+     *
+     * @param g:
+     * @return
+     * @author zhao.song    2020/12/22 19:51
+     */
+    private void drawAppearance(Graphics g) {
+        switch (dir) {
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
+                break;
+        }
     }
 
     private void move() {
@@ -67,7 +87,8 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH
+                || y > TankFrame.GAME_HEIGHT) {
             this.live = false;
         }
     }

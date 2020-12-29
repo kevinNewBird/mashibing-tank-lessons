@@ -76,6 +76,8 @@ public class TankFrame extends Frame {
         g.drawImage(offScreenImage, 0, 0, null);
     }
 
+
+    Tank tank = new Tank(10, 60, Dir.RIGHT, this);
     //窗口需要重新绘制的时候,自动调用该方法(1.窗口第一次显示的时候,2.窗口被别人盖住又显示出来的时候,3.窗口改变大小的时候)
     @Override
     public void paint(Graphics g) {
@@ -86,6 +88,9 @@ public class TankFrame extends Frame {
         // tip: 面向对象的思维:应该是将画笔递给坦克,坦克最知道该如何移动
         // ,而不是把tank的属性获取到再去设置
         mainTank.paint(g);
+
+        tank.setMoving(true);
+        tank.paint(g);
 /*        bulletContainer.forEach(bullet -> {
             //思考问题: 打出去的子弹是否该移出容器? 应该怎样移出容器?
             //ans:1.不可以,因为每次都是重画窗口,如果移出会导致子弹消失;

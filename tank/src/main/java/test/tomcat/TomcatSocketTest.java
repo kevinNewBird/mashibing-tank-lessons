@@ -1,4 +1,4 @@
-package com.test.tomcat;
+package test.tomcat;
 
 import java.io.IOException;
 import java.net.Socket;

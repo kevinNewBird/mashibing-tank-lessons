@@ -1,4 +1,4 @@
-package com.test.socketconn;
+package test.socketconn;
 
 import java.io.IOException;
 import java.net.ServerSocket;

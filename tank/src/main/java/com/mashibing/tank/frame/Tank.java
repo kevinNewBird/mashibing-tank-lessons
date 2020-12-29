@@ -37,11 +37,36 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
-        g.setColor(Color.BLUE);
-        g.fillRect(x, y, 50, 50);
-
+//        g.setColor(Color.BLUE);
+//        g.fillRect(x, y, 50, 50);
         move();
+        //画出坦克外观
+        drawAppearance(g);
 
+    }
+
+    /**
+     * Description: 描绘并美化tank的外观 <BR>
+     *
+     * @param g:
+     * @return
+     * @author zhao.song    2020/12/22 19:51
+     */
+    private void drawAppearance(Graphics g) {
+        switch (dir) {
+            case RIGHT:
+                g.drawImage(ResourceMgr.tankR, x, y, null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.tankD, x, y, null);
+                break;
+            case LEFT:
+                g.drawImage(ResourceMgr.tankL, x, y, null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.tankU, x, y, null);
+                break;
+        }
     }
 
     private void move() {
@@ -85,6 +110,6 @@ public class Tank {
      * @author zhao.song    2020/12/14 11:06
      */
     public void fire() {
-        this.tf.b = new Bullet(this.x, this.y, this.dir,this.tf);
+        this.tf.b = new Bullet(this.x, this.y, this.dir, this.tf);
     }
 }
