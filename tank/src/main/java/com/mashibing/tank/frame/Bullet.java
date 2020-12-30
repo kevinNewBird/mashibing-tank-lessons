@@ -108,7 +108,7 @@ public class Bullet {
         //2.坦克的矩形框
         Rectangle rectTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 
-        if (this.group != tank.getGroup() && rectTank.intersects(rectBullet)) {
+        if (rectTank.intersects(rectBullet)) {
             tank.die();
             this.die();
         }
