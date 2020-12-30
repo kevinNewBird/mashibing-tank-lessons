@@ -12,10 +12,10 @@ import java.awt.*;
 public class Bullet {
 
 
-    public static final int UD_WIDTH = ResourceMgr.bulletD.getWidth();
-    public static final int UD_HEIGHT = ResourceMgr.bulletD.getHeight();
-    public static final int LR_WIDTH = ResourceMgr.bulletL.getWidth();
-    public static final int LR_HEIGHT = ResourceMgr.bulletR.getHeight();
+    public static final int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
+
+    private Group group = Group.BAD;
 
     private TankFrame tf;
     //子弹位置
@@ -27,22 +27,23 @@ public class Bullet {
     //子弹速度
     private final int SPEED = 5;
 
-    private boolean live = true;
+    private boolean isLiving = true;
 
-    public boolean isLive() {
-        return live;
+    public boolean isLiving() {
+        return isLiving;
     }
 
-    public Bullet(int x, int y, Dir dir, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
     }
 
 
     public void paint(Graphics g) {
-        if (!live) {
+        if (!isLiving) {
             tf.bulletContainer.remove(this);
         }
 
@@ -61,28 +62,16 @@ public class Bullet {
     private void drawAppearance(Graphics g) {
         switch (dir) {
             case RIGHT:
-                g.drawImage(ResourceMgr.bulletR
-                        , Tank.LR_WIDTH + x
-                        , (Tank.LR_HEIGHT - Bullet.LR_HEIGHT) / 2 + y
-                        , null);
+                g.drawImage(ResourceMgr.bulletR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.bulletD,
-                        (Tank.UD_WIDTH - Bullet.UD_WIDTH) / 2 + x
-                        , Tank.UD_HEIGHT + y
-                        , null);
+                g.drawImage(ResourceMgr.bulletD, x, y, null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.bulletL
-                        , x - Bullet.LR_WIDTH
-                        , (Tank.LR_HEIGHT - Bullet.LR_HEIGHT) / 2 + y
-                        , null);
+                g.drawImage(ResourceMgr.bulletL, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.bulletU
-                        , x + (Tank.UD_WIDTH - Bullet.UD_WIDTH) / 2
-                        , y - Bullet.UD_HEIGHT
-                        , null);
+                g.drawImage(ResourceMgr.bulletU, x, y, null);
                 break;
         }
     }
@@ -104,32 +93,28 @@ public class Bullet {
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH
                 || y > TankFrame.GAME_HEIGHT) {
-            this.live = false;
+            this.isLiving = false;
         }
     }
 
 
     public void collideWithTank(Tank tank) {
+        if (this.group == tank.getGroup()) return;
+
         //使用awt下辅助类:获取坦克和子弹的矩形
         //1.子弹得矩形框
-        Rectangle rectBullet = new Rectangle(this.x, this.y
-                , this.dir == Dir.DOWN || this.dir == Dir.UP ? this.UD_WIDTH : this.LR_WIDTH
-                , this.dir == Dir.DOWN || this.dir == Dir.UP ? this.UD_HEIGHT : this.LR_HEIGHT);
+        Rectangle rectBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
 
         //2.坦克的矩形框
-        Rectangle rectTank = new Rectangle(tank.getX(), tank.getY()
-                , tank.getDir() == Dir.DOWN || tank.getDir() == Dir.UP ? Tank.UD_WIDTH : Tank.LR_WIDTH
-                , tank.getDir() == Dir.DOWN || tank.getDir() == Dir.UP ? Tank.UD_HEIGHT : Tank.LR_HEIGHT);
+        Rectangle rectTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 
-        if (rectTank.intersects(rectBullet)) {
-            //mine:自己的做法粗暴的移除集合元素
-            //teacher:图片渲染
+        if (this.group != tank.getGroup() && rectTank.intersects(rectBullet)) {
             tank.die();
             this.die();
         }
     }
 
     private void die() {
-        this.live = false;
+        this.isLiving = false;
     }
 }

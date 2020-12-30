@@ -1,6 +1,7 @@
 package com.mashibing.tank.frame;
 
 import java.awt.*;
+import java.util.Random;
 
 /***********************
  * Description: 坦克对象类(面向对象思维) <BR>
@@ -10,15 +11,17 @@ import java.awt.*;
  ***********************/
 public class Tank {
 
-    public static final int UD_WIDTH = ResourceMgr.tankD.getWidth();
-    public static final int UD_HEIGHT = ResourceMgr.tankD.getHeight();
-    public static final int LR_WIDTH = ResourceMgr.tankL.getWidth();
-    public static final int LR_HEIGHT = ResourceMgr.tankL.getHeight();
+    private Random r = new Random();
+
+    public static final int WIDTH = ResourceMgr.tankD.getWidth();
+    public static final int HEIGHT = ResourceMgr.tankD.getHeight();
 
     private int x, y;
     private int speed = 10;
     private Dir dir = Dir.DOWN;
     private boolean isLiving = true;
+
+    private Group group = Group.BAD;
 
     // 坦克的状态:禁止false/移动move;这个不应该是一个方向,仅仅表示坦克的一个运动状态
     private boolean moving = false;
@@ -26,20 +29,12 @@ public class Tank {
     //面向对象思想:保证这个类持有窗口类的引用
     private TankFrame tf = null;
 
-
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.tf = tf;
-    }
-
-    public Tank(int x, int y, int speed, Dir dir, TankFrame tf) {
-        this.x = x;
-        this.y = y;
-        this.dir = dir;
-        this.speed = speed;
-        this.tf = tf;
+        this.group = group;
     }
 
     public Dir getDir() {
@@ -52,7 +47,12 @@ public class Tank {
 
     public int getY() {
         return y;
+
     }
+    public Group getGroup() {
+        return this.group;
+    }
+
 
     public synchronized void paint(Graphics g) {
         //tank被击中,停止描绘
@@ -70,9 +70,6 @@ public class Tank {
     }
 
     private void stopAndReverseDir() {
-        if (this.x < 0 || this.y < 0 || this.x > this.tf.GAME_WIDTH || this.y > this.tf.GAME_HEIGHT) {
-
-        }
         if (this.x < 0) {
             dir = Dir.RIGHT;
         } else if (this.y < 0) {
@@ -125,6 +122,11 @@ public class Tank {
                 y -= speed;
                 break;
         }
+
+        // 敌方坦克自动开火
+        if (group == Group.BAD && r.nextInt(10) > 8) {
+            this.fire();
+        }
     }
 
     public void setDir(Dir dir) {
@@ -149,7 +151,11 @@ public class Tank {
      * @author zhao.song    2020/12/14 11:06
      */
     public void fire() {
-        this.tf.b = new Bullet(this.x, this.y, this.dir, this.tf);
+        int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + x;
+        int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + y;
+        this.tf.b = new Bullet(bX, bY, this.dir, group, this.tf);
+
+        tf.bulletContainer.add(this.tf.b);
     }
 
     public void die() {

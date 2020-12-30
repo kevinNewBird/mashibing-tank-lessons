@@ -16,11 +16,11 @@ public class Main {
 
 
         TankFrame tankFrame = new TankFrame();
-
+        tankFrame.enemyTankContainer.add(tankFrame.mainTank);
         //初始化地方坦克
         for (int i = 5; i > 0; i--) {
             tankFrame.enemyTankContainer.add(
-                    new Tank(50 + i * 100, 200, Dir.LEFT, tankFrame));
+                    new Tank(50 + i * 100, 200, Dir.LEFT, Group.BAD, tankFrame));
         }
 
         while (true) {
