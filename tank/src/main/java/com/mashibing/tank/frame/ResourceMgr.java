@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 
 /***********************
  * Description: 资源管理类 <BR>
@@ -20,6 +21,7 @@ public class ResourceMgr {
     private static Logger logger = LoggerFactory.getLogger(ResourceMgr.class);
     public static BufferedImage tankL,tankU,tankR,tankD;
     public static BufferedImage bulletL,bulletU,bulletR,bulletD;
+    public static BufferedImage badTank6;
     static {
         try {
 //            int i = 1 / 0;
@@ -31,6 +33,7 @@ public class ResourceMgr {
             bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.gif"));
             bulletR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletR.gif"));
             bulletD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
+            badTank6 = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/6.gif"));
         } catch (Exception e) {
             logger.error("初始化资源加载失败!",e);
         }

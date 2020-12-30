@@ -21,10 +21,12 @@ public class TankFrame extends Frame {
     //窗口高度
     public static final int GAME_HEIGHT = 600;
 
-    Tank mainTank = new Tank(200, 200, 10, Dir.DOWN, this);
+    Tank mainTank = new Tank(200, 300, 10, Dir.DOWN, this);
 
     //子弹容器,实现多个字段的输出
     java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
+
+    java.util.List<Tank> enemyTankContainer = new ArrayList<>();
 
     Bullet b = new Bullet(200, 200, Dir.DOWN, this);
 
@@ -78,19 +80,24 @@ public class TankFrame extends Frame {
 
 
     Tank tank = new Tank(10, 60, Dir.RIGHT, this);
+
     //窗口需要重新绘制的时候,自动调用该方法(1.窗口第一次显示的时候,2.窗口被别人盖住又显示出来的时候,3.窗口改变大小的时候)
     @Override
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.YELLOW);
         g.drawString("子弹数量:" + bulletContainer.size(), 30, 50);
+        g.drawString("敌坦数量:" + enemyTankContainer.size(), 30, 80);
         g.setColor(c);
         // tip: 面向对象的思维:应该是将画笔递给坦克,坦克最知道该如何移动
         // ,而不是把tank的属性获取到再去设置
         mainTank.paint(g);
 
-        tank.setMoving(true);
-        tank.paint(g);
+        for (Tank enemyTank : enemyTankContainer) {
+            enemyTank.setMoving(false);
+            enemyTank.paint(g);
+        }
+
 /*        bulletContainer.forEach(bullet -> {
             //思考问题: 打出去的子弹是否该移出容器? 应该怎样移出容器?
             //ans:1.不可以,因为每次都是重画窗口,如果移出会导致子弹消失;
@@ -113,9 +120,14 @@ public class TankFrame extends Frame {
         // 2.可行解决方案二:
         for (int i = 0; i < bulletContainer.size(); i++) {
             bulletContainer.get(i).paint(g);
-
         }
 
+        // 3.碰撞判断
+        for (int i = bulletContainer.size() - 1; i >= 0; i--) {
+            for (int j = enemyTankContainer.size() - 1; j >= 0; j--) {
+                bulletContainer.get(i).collideWithTank(enemyTankContainer.get(j));
+            }
+        }
     }
 
 

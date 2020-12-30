@@ -109,4 +109,27 @@ public class Bullet {
     }
 
 
+    public void collideWithTank(Tank tank) {
+        //使用awt下辅助类:获取坦克和子弹的矩形
+        //1.子弹得矩形框
+        Rectangle rectBullet = new Rectangle(this.x, this.y
+                , this.dir == Dir.DOWN || this.dir == Dir.UP ? this.UD_WIDTH : this.LR_WIDTH
+                , this.dir == Dir.DOWN || this.dir == Dir.UP ? this.UD_HEIGHT : this.LR_HEIGHT);
+
+        //2.坦克的矩形框
+        Rectangle rectTank = new Rectangle(tank.getX(), tank.getY()
+                , tank.getDir() == Dir.DOWN || tank.getDir() == Dir.UP ? Tank.UD_WIDTH : Tank.LR_WIDTH
+                , tank.getDir() == Dir.DOWN || tank.getDir() == Dir.UP ? Tank.UD_HEIGHT : Tank.LR_HEIGHT);
+
+        if (rectTank.intersects(rectBullet)) {
+            //mine:自己的做法粗暴的移除集合元素
+            //teacher:图片渲染
+            tank.die();
+            this.die();
+        }
+    }
+
+    private void die() {
+        this.live = false;
+    }
 }

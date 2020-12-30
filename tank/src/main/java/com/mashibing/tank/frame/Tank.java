@@ -18,6 +18,7 @@ public class Tank {
     private int x, y;
     private int speed = 10;
     private Dir dir = Dir.DOWN;
+    private boolean isLiving = true;
 
     // 坦克的状态:禁止false/移动move;这个不应该是一个方向,仅仅表示坦克的一个运动状态
     private boolean moving = false;
@@ -41,13 +42,46 @@ public class Tank {
         this.tf = tf;
     }
 
-    public void paint(Graphics g) {
+    public Dir getDir() {
+        return dir;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public synchronized void paint(Graphics g) {
+        //tank被击中,停止描绘
+        if (!isLiving) {
+            tf.enemyTankContainer.remove(this);
+            return;
+        }
 //        g.setColor(Color.BLUE);
 //        g.fillRect(x, y, 50, 50);
+        stopAndReverseDir();
         move();
         //画出坦克外观
         drawAppearance(g);
 
+    }
+
+    private void stopAndReverseDir() {
+        if (this.x < 0 || this.y < 0 || this.x > this.tf.GAME_WIDTH || this.y > this.tf.GAME_HEIGHT) {
+
+        }
+        if (this.x < 0) {
+            dir = Dir.RIGHT;
+        } else if (this.y < 0) {
+            dir = Dir.DOWN;
+        } else if (this.x > this.tf.GAME_WIDTH) {
+            dir = Dir.LEFT;
+        } else if (this.y > this.tf.GAME_HEIGHT) {
+            dir = Dir.UP;
+        }
     }
 
     /**
@@ -116,5 +150,9 @@ public class Tank {
      */
     public void fire() {
         this.tf.b = new Bullet(this.x, this.y, this.dir, this.tf);
+    }
+
+    public void die() {
+        this.isLiving = false;
     }
 }
