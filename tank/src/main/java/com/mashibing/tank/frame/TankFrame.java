@@ -1,12 +1,16 @@
 package com.mashibing.tank.frame;
 
+import io.vavr.control.Try;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.concurrent.TimeUnit;
 
 /***********************
  * Description: 继承frame窗口类 <BR>
@@ -27,6 +31,8 @@ public class TankFrame extends Frame {
     java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
 
     java.util.List<Tank> enemyTankContainer = new ArrayList<>();
+
+    java.util.List<Explode> explodes = new ArrayList<>();
 
     Bullet b = new Bullet(200, 200, Dir.DOWN, Group.GOOD, this);
 
@@ -130,6 +136,10 @@ public class TankFrame extends Frame {
             for (int j = enemyTankContainer.size() - 1; j >= 0; j--) {
                 bulletContainer.get(i).collideWithTank(enemyTankContainer.get(j));
             }
+        }
+
+        for (int i = 0; i < explodes.size(); i++) {
+            explodes.get(i).paint(g);
         }
     }
 

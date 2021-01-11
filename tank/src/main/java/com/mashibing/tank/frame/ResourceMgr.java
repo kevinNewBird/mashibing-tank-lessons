@@ -19,9 +19,12 @@ import java.io.InputStream;
  ***********************/
 public class ResourceMgr {
     private static Logger logger = LoggerFactory.getLogger(ResourceMgr.class);
-    public static BufferedImage tankL,tankU,tankR,tankD;
-    public static BufferedImage bulletL,bulletU,bulletR,bulletD;
-    public static BufferedImage badTank6;
+    public static BufferedImage tankL, tankU, tankR, tankD;
+    public static BufferedImage bulletL, bulletU, bulletR, bulletD;
+    //爆炸效果
+    public static BufferedImage[] explodes = new BufferedImage[16];
+    public static BufferedImage boom0, boom1, boom2, boom3, boom4, boom5, boom6, boom7, boom8, boom9, boom10;
+
     static {
         try {
 //            int i = 1 / 0;
@@ -33,9 +36,11 @@ public class ResourceMgr {
             bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.gif"));
             bulletR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletR.gif"));
             bulletD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
-            badTank6 = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/6.gif"));
+            for (int i = 0; i < explodes.length; i++) {
+                explodes[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/e" + (i + 1) + ".gif"));
+            }
         } catch (Exception e) {
-            logger.error("初始化资源加载失败!",e);
+            logger.error("初始化资源加载失败!", e);
         }
 
     }
