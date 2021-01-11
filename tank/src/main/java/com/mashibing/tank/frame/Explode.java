@@ -1,5 +1,8 @@
 package com.mashibing.tank.frame;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
@@ -12,6 +15,9 @@ import java.util.List;
  * version: 1.0
  ***********************/
 public class Explode {
+
+    private Logger logger = LoggerFactory.getLogger(Explode.class);
+
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
 
@@ -30,6 +36,8 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
+        new Audio("audios/explode.wav").start();
+        logger.info("目标被摧毁!");
     }
 
     public int getX() {
@@ -41,7 +49,7 @@ public class Explode {
     }
 
     //如何画:使用一个常数记录步骤
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         if (step >= ResourceMgr.explodes.length) {
             this.tf.explodes.remove(this);
             return;

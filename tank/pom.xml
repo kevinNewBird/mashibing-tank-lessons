@@ -74,6 +74,7 @@
                 <directory>${basedir}/src/main/java</directory>
                 <includes>
                     <include>images/*.*</include>
+                    <include>audios/*.*</include>
                 </includes>
 <!--                <filtering>true</filtering>-->
             </resource>
