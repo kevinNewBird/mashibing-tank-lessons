@@ -17,7 +17,7 @@ public class Tank {
     public static final int HEIGHT = ResourceMgr.tankD.getHeight();
 
     private int x, y;
-    private int speed = 10;
+    private int speed = 5;
     private Dir dir = Dir.DOWN;
     private boolean isLiving = true;
 
@@ -49,28 +49,33 @@ public class Tank {
         return y;
 
     }
+
     public Group getGroup() {
         return this.group;
     }
 
 
     public synchronized void paint(Graphics g) {
-        //tank被击中,停止描绘
+        // 1.tank被击中,停止描绘
         if (!isLiving) {
             tf.enemyTankContainer.remove(this);
             return;
         }
 //        g.setColor(Color.BLUE);
 //        g.fillRect(x, y, 50, 50);
-        stopAndReverseDir();
+        // 2.tank的边界检测
+        checkTankEdge();
         move();
-        //画出坦克外观
+        // 3.画出坦克外观
         drawAppearance(g);
 
     }
 
-    private void stopAndReverseDir() {
-        if (this.x < 0) {
+    private void checkTankEdge() {
+        if (this.group == Group.GOOD && (this.x < 0 || this.y < 0 || this.x > this.tf.GAME_WIDTH || this.y > this.tf.GAME_HEIGHT)) {
+//            this.moving = false;
+        }
+        /*if (this.x < 0) {
             dir = Dir.RIGHT;
         } else if (this.y < 0) {
             dir = Dir.DOWN;
@@ -78,7 +83,7 @@ public class Tank {
             dir = Dir.LEFT;
         } else if (this.y > this.tf.GAME_HEIGHT) {
             dir = Dir.UP;
-        }
+        }*/
     }
 
     /**

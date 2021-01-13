@@ -25,7 +25,7 @@ public class Bullet {
     private Dir dir;
 
     //子弹速度
-    private final int SPEED = 5;
+    private final int SPEED = 10;
 
     private boolean isLiving = true;
 

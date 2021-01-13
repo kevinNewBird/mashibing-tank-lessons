@@ -21,9 +21,9 @@ import java.util.concurrent.TimeUnit;
 public class TankFrame extends Frame {
 
     //窗口宽度
-    public static final int GAME_WIDTH = 800;
+    public static final int GAME_WIDTH = 1080;
     //窗口高度
-    public static final int GAME_HEIGHT = 600;
+    public static final int GAME_HEIGHT = 980;
 
     Tank mainTank = new Tank(200, 300, Dir.DOWN, Group.GOOD, this);
 

@@ -16,14 +16,16 @@ public class Main {
 
 
         TankFrame tankFrame = new TankFrame();
-        tankFrame.enemyTankContainer.add(tankFrame.mainTank);
+//        tankFrame.enemyTankContainer.add(tankFrame.mainTank);
         //初始化地方坦克
         for (int i = 5; i > 0; i--) {
             tankFrame.enemyTankContainer.add(
-                    new Tank(50 + i * 100, 200, Dir.LEFT, Group.BAD, tankFrame));
+                    new Tank(50 + i * 100, 200, Dir.DOWN, Group.BAD, tankFrame));
         }
 
         while (true) {
+            // 背景音乐
+//            new Audio("audios/war1.wav").start();
             TimeUnit.MILLISECONDS.sleep(50);
             //刷新窗口,repaint方法会主动调用paint方法
             tankFrame.repaint();
