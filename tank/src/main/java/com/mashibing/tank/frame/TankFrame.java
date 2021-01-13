@@ -20,10 +20,11 @@ import java.util.concurrent.TimeUnit;
  ***********************/
 public class TankFrame extends Frame {
 
+    //16:9
     //窗口宽度
-    public static final int GAME_WIDTH = 1080;
+    public static final int GAME_WIDTH = 1280;
     //窗口高度
-    public static final int GAME_HEIGHT = 980;
+    public static final int GAME_HEIGHT = 720;
 
     Tank mainTank = new Tank(200, 300, Dir.DOWN, Group.GOOD, this);
 
@@ -90,8 +91,9 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.YELLOW);
-        g.drawString("子弹数量:" + bulletContainer.size(), 30, 50);
-        g.drawString("敌坦数量:" + (enemyTankContainer.size() - 1), 30, 80);
+        g.drawString("子弹数量:" + bulletContainer.size(), 10, 50);
+        g.drawString("敌坦数量:" + (enemyTankContainer.size()), 10, 80);
+        g.drawString("爆炸数量:" + (explodes.size()), 10, 110);
         g.setColor(c);
         // tip: 面向对象的思维:应该是将画笔递给坦克,坦克最知道该如何移动
         // ,而不是把tank的属性获取到再去设置

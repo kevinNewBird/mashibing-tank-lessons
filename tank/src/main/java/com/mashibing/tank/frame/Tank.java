@@ -128,8 +128,22 @@ public class Tank {
                 break;
         }
 
-        // 敌方坦克自动开火
-        if (group == Group.BAD && r.nextInt(10) > 8) {
+        if (this.group == Group.BAD) {
+            // 敌方坦克自动开火
+            randomFire();
+            //随机变动敌坦方向
+            randomDir();
+        }
+    }
+
+    private void randomDir() {
+        if (r.nextInt(50) > 45) {
+            this.setDir(Dir.values()[r.nextInt(Dir.values().length)]);
+        }
+    }
+
+    private void randomFire() {
+        if (r.nextInt(20) > 16) {
             this.fire();
         }
     }
