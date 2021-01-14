@@ -109,7 +109,9 @@ public class Bullet {
         Rectangle rectTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 
         if (rectTank.intersects(rectBullet)) {
-            tf.explodes.add(new Explode(tank.getX(), tank.getY(), tf));
+            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
+            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
+            tf.explodes.add(new Explode(eX, eY, tf));
             tank.die();
             this.die();
         }
