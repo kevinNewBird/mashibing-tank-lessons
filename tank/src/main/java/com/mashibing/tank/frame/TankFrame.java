@@ -194,7 +194,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    mainTank.fire();
+                     mainTank.fire();
 //                    bulletContainer.add(b);
                     break;
                 default:

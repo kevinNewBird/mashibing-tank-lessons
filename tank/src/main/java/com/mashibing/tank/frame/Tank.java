@@ -13,8 +13,8 @@ public class Tank {
 
     private Random r = new Random();
 
-    public static final int WIDTH = ResourceMgr.tankD.getWidth();
-    public static final int HEIGHT = ResourceMgr.tankD.getHeight();
+    public static final int WIDTH = ResourceMgr.goodTankD.getWidth();
+    public static final int HEIGHT = ResourceMgr.goodTankD.getHeight();
 
     private int x, y;
     private int speed = 5;
@@ -22,6 +22,11 @@ public class Tank {
     private boolean isLiving = true;
 
     private Group group = Group.BAD;
+
+    //--------------------用于切换坦克的灯光效果------------------
+//    private int step = 0;
+//    private static final int DEFAULT_LIGHT_CONST_MIN = 20;
+    //--------------------用于切换坦克的灯光效果------------------
 
     // 坦克的状态:禁止false/移动move;这个不应该是一个方向,仅仅表示坦克的一个运动状态
     private boolean moving = false;
@@ -63,27 +68,31 @@ public class Tank {
         }
 //        g.setColor(Color.BLUE);
 //        g.fillRect(x, y, 50, 50);
-        // 2.tank的边界检测
-        checkTankEdge();
+
         move();
         // 3.画出坦克外观
-        drawAppearance(g);
+        display(g);
 
     }
 
-    private void checkTankEdge() {
-        if (this.group == Group.GOOD && (this.x < 0 || this.y < 0 || this.x > this.tf.GAME_WIDTH || this.y > this.tf.GAME_HEIGHT)) {
-//            this.moving = false;
+    /**
+     * Description: 边界监测 <BR>
+     *
+     * @param :
+     * @return
+     * @author zhao.song    2021/1/18 16:58
+     */
+    private void boundsCheck() {
+
+        if (this.x < 2) {
+            x = 2;
+        } else if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH-2) {
+            x = TankFrame.GAME_WIDTH - Tank.WIDTH-2;
+        } else if (this.y < 30) {
+            y = 30;
+        } else if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT-2) {
+            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT-2;
         }
-        /*if (this.x < 0) {
-            dir = Dir.RIGHT;
-        } else if (this.y < 0) {
-            dir = Dir.DOWN;
-        } else if (this.x > this.tf.GAME_WIDTH) {
-            dir = Dir.LEFT;
-        } else if (this.y > this.tf.GAME_HEIGHT) {
-            dir = Dir.UP;
-        }*/
     }
 
     /**
@@ -93,21 +102,43 @@ public class Tank {
      * @return
      * @author zhao.song    2020/12/22 19:51
      */
-    private void drawAppearance(Graphics g) {
+    private void display(Graphics g) {
+//        ++step;
         switch (dir) {
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                g.drawImage(this.group == Group.BAD
+                                ? ResourceMgr.badTankR
+                                : ResourceMgr.goodTankR
+//                                ? (step % DEFAULT_LIGHT_CONST_MIN ==0 ? ResourceMgr.badTankR_light : ResourceMgr.badTankR)
+//                                : (step % DEFAULT_LIGHT_CONST_MIN ==0 ? ResourceMgr.goodTankR_light : ResourceMgr.goodTankR)
+                        , x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                g.drawImage(this.group == Group.BAD
+                                ? ResourceMgr.badTankD
+                                : ResourceMgr.goodTankD
+//                                ? (step % DEFAULT_LIGHT_CONST_MIN == 0 ? ResourceMgr.badTankD_light : ResourceMgr.badTankD)
+//                                : (step % DEFAULT_LIGHT_CONST_MIN == 0 ? ResourceMgr.goodTankD_light : ResourceMgr.goodTankD)
+                        , x, y, null);
                 break;
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                g.drawImage(this.group == Group.BAD
+                                ? ResourceMgr.badTankL
+                                : ResourceMgr.goodTankL
+//                                ? (step % DEFAULT_LIGHT_CONST_MIN == 0 ? ResourceMgr.badTankL_light : ResourceMgr.badTankL)
+//                                : (step % DEFAULT_LIGHT_CONST_MIN == 0 ? ResourceMgr.goodTankL_light : ResourceMgr.goodTankL)
+                        , x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                g.drawImage(this.group == Group.BAD
+                                ? ResourceMgr.badTankU
+                                : ResourceMgr.goodTankU
+//                                ? (step % DEFAULT_LIGHT_CONST_MIN == 0 ? ResourceMgr.badTankU_light : ResourceMgr.badTankU)
+//                                : (step % DEFAULT_LIGHT_CONST_MIN == 0 ? ResourceMgr.goodTankU_light : ResourceMgr.goodTankU)
+                        , x, y, null);
                 break;
         }
+
     }
 
     private void move() {
@@ -134,16 +165,19 @@ public class Tank {
             //随机变动敌坦方向
             randomDir();
         }
+
+        // tank的边界检测
+        boundsCheck();
     }
 
     private void randomDir() {
-        if (r.nextInt(50) > 45) {
+        if (r.nextInt(100) > 95) {
             this.setDir(Dir.values()[r.nextInt(Dir.values().length)]);
         }
     }
 
     private void randomFire() {
-        if (r.nextInt(20) > 16) {
+        if (r.nextInt(100) > 95) {
             this.fire();
         }
     }
