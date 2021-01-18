@@ -15,6 +15,8 @@ public class Bullet {
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
+    Rectangle rect = new Rectangle();
+
     private Group group = Group.BAD;
 
     private TankFrame tf;
@@ -39,6 +41,10 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
 
@@ -91,6 +97,10 @@ public class Bullet {
                 y += SPEED;
                 break;
         }
+        // update rect
+        rect.x = this.x;
+        rect.y = this.y;
+
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH
                 || y > TankFrame.GAME_HEIGHT) {
             this.isLiving = false;
@@ -101,14 +111,15 @@ public class Bullet {
     public void collideWithTank(Tank tank) {
         if (this.group == tank.getGroup()) return;
 
-        //使用awt下辅助类:获取坦克和子弹的矩形
+        //使用awt下辅助类:获取坦克和子弹的矩形(每一次检测都会创建新对象,垃圾回收时间不受控制)
+        //好的做法在自己的类中成员变量Rectangle
         //1.子弹得矩形框
-        Rectangle rectBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
+//        Rectangle rectBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
 
         //2.坦克的矩形框
-        Rectangle rectTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
+//        Rectangle rectTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
 
-        if (rectTank.intersects(rectBullet)) {
+        if (tank.rect.intersects(this.rect)) {
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
             tf.explodes.add(new Explode(eX, eY, tf));

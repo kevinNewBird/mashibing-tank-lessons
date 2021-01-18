@@ -16,6 +16,8 @@ public class Tank {
     public static final int WIDTH = ResourceMgr.goodTankD.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankD.getHeight();
 
+    Rectangle rect = new Rectangle();
+
     private int x, y;
     private int speed = 5;
     private Dir dir = Dir.DOWN;
@@ -40,6 +42,10 @@ public class Tank {
         this.dir = dir;
         this.tf = tf;
         this.group = group;
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public Dir getDir() {
@@ -86,12 +92,12 @@ public class Tank {
 
         if (this.x < 2) {
             x = 2;
-        } else if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH-2) {
-            x = TankFrame.GAME_WIDTH - Tank.WIDTH-2;
+        } else if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) {
+            x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
         } else if (this.y < 30) {
             y = 30;
-        } else if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT-2) {
-            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT-2;
+        } else if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) {
+            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
         }
     }
 
@@ -168,6 +174,10 @@ public class Tank {
 
         // tank的边界检测
         boundsCheck();
+
+        // update rect
+        rect.x = this.x;
+        rect.y = this.y;
     }
 
     private void randomDir() {
