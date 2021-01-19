@@ -1,5 +1,7 @@
 package com.mashibing.tank.frame;
 
+import com.mashibing.tank.PropertyMgr;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.util.concurrent.TimeUnit;
@@ -16,9 +18,11 @@ public class Main {
 
 
         TankFrame tankFrame = new TankFrame();
+
+        int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount").orElse(10).toString());
 //        tankFrame.enemyTankContainer.add(tankFrame.mainTank);
         //初始化地方坦克
-        for (int i = 5; i > 0; i--) {
+        for (int i = initTankCount; i > 0; i--) {
             tankFrame.enemyTankContainer.add(
                     new Tank(50 + i * 100, 200, Dir.DOWN, Group.BAD, tankFrame));
         }
