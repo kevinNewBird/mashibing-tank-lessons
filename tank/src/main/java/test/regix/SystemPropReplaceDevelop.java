@@ -21,7 +21,7 @@ public class SystemPropReplaceDevelop {
     static {
         try {
             Properties props0 = new Properties();
-            props0.load(new FileInputStream("E:\\classloader\\test0.properties"));
+            props0.load(new FileInputStream("E:\\classloader\\config.properties"));
             Enumeration<String> keys = (Enumeration<String>) props0.propertyNames();
             while (keys.hasMoreElements()) {
                 String key = keys.nextElement();
