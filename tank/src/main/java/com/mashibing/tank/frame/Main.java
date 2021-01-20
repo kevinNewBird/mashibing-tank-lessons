@@ -1,9 +1,6 @@
 package com.mashibing.tank.frame;
 
-import com.mashibing.tank.PropertyMgr;
-
 import java.io.IOException;
-import java.net.Socket;
 import java.util.concurrent.TimeUnit;
 
 /***********************

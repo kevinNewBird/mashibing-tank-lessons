@@ -1,4 +1,4 @@
-package com.mashibing.tank;
+package com.mashibing.tank.frame;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 /***********************
  * Description: 配置文件管理类 <BR>
