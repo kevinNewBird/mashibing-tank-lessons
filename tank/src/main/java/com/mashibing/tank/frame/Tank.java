@@ -19,7 +19,7 @@ public class Tank {
     Rectangle rect = new Rectangle();
 
     private int x, y;
-    private int speed = 5;
+    private int speed = PropertyMgr.getInt("tankSpeed");;
     private Dir dir = Dir.DOWN;
     private boolean isLiving = true;
 

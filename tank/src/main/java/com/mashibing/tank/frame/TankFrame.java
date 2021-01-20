@@ -22,9 +22,9 @@ public class TankFrame extends Frame {
 
     //16:9
     //窗口宽度
-    public static final int GAME_WIDTH = 1280;
+    public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
     //窗口高度
-    public static final int GAME_HEIGHT = 720;
+    public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
     Tank mainTank = new Tank(200, 300, Dir.DOWN, Group.GOOD, this);
 

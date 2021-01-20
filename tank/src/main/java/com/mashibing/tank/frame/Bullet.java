@@ -27,7 +27,7 @@ public class Bullet {
     private Dir dir;
 
     //子弹速度
-    private final int SPEED = 10;
+    private final int SPEED = PropertyMgr.getInt("bulletSpeed");;
 
     private boolean isLiving = true;
 

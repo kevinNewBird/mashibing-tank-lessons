@@ -34,6 +34,30 @@ public class PropertyMgr {
         return props.get(key) != null ? Optional.of(props.get(key)) : Optional.empty();
     }
 
+    public static int getInt(String key) {
+        int value = -1;
+        try {
+            if ((get(key).isPresent())) {
+                value = Integer.parseInt(get(key).get().toString());
+            }
+        } catch (NumberFormatException e) {
+            logger.error("getting [" + key + "] property occur exception!",e);
+        }
+        return value;
+    }
+
+    public static String getString(String key){
+        String value = null;
+        try {
+            if ((get(key).isPresent())) {
+                value =get(key).get().toString();
+            }
+        } catch (Exception e) {
+            logger.error("getting [" + key + "] property occur exception!",e);
+        }
+        return value;
+    }
+
     public static void main(String[] args) {
         if (get("initTankCount2").isPresent()) {
             System.out.println(get("initTankCount2").get());
