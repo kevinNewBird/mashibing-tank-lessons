@@ -17,7 +17,12 @@ public class PropertyMgr {
 
     private static Logger logger = LoggerFactory.getLogger(PropertyMgr.class);
 
+    //props已经是单例的了, 只需PropertyMgr保证不可被new
     static Properties props =  new Properties();
+
+    private PropertyMgr(){
+
+    }
 
     static {
         try {

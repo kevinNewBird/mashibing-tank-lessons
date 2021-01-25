@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ResourceBundle;
 
 /***********************
  * Description: 资源管理类 <BR>
@@ -29,6 +30,10 @@ public class ResourceMgr {
     //爆炸效果
     public static BufferedImage[] explodes = new BufferedImage[16];
 
+    private ResourceMgr() {
+
+    }
+
     static {
         try {
 //            int i = 1 / 0;
@@ -36,18 +41,18 @@ public class ResourceMgr {
             goodTankL = ImageUtil.rotateImage(goodTankU, -90);
             goodTankR = ImageUtil.rotateImage(goodTankU, 90);
             goodTankD = ImageUtil.rotateImage(goodTankU, 180);
-            goodTankD_light = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank2.png"));
-            goodTankD_light = ImageUtil.rotateImage(goodTankD_light, -90);
-            goodTankD_light = ImageUtil.rotateImage(goodTankD_light, 90);
-            goodTankD_light = ImageUtil.rotateImage(goodTankD_light, 180);
+            goodTankU_light = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank2.png"));
+            goodTankL_light = ImageUtil.rotateImage(goodTankU_light, -90);
+            goodTankR_light = ImageUtil.rotateImage(goodTankU_light, 90);
+            goodTankD_light = ImageUtil.rotateImage(goodTankU_light, 180);
             badTankU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank1.png"));
             badTankL = ImageUtil.rotateImage(badTankU, -90);
             badTankR = ImageUtil.rotateImage(badTankU, 90);
             badTankD = ImageUtil.rotateImage(badTankU, 180);
-            badTankD_light = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank2.png"));
-            badTankD_light = ImageUtil.rotateImage(badTankD_light, -90);
-            badTankD_light = ImageUtil.rotateImage(badTankD_light, 90);
-            badTankD_light = ImageUtil.rotateImage(badTankD_light, 180);
+            badTankU_light = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/BadTank2.png"));
+            badTankL_light = ImageUtil.rotateImage(badTankU_light, -90);
+            badTankR_light = ImageUtil.rotateImage(badTankU_light, 90);
+            badTankD_light = ImageUtil.rotateImage(badTankU_light, 180);
             bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
             bulletL = ImageUtil.rotateImage(bulletU, -90);
             bulletR = ImageUtil.rotateImage(bulletU, 90);
