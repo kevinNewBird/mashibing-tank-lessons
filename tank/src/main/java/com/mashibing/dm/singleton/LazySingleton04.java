@@ -18,7 +18,8 @@ public class LazySingleton04 {
 
     private static Logger logger = LoggerFactory.getLogger(LazySingleton04.class);
 
-    private static LazySingleton04 INSTANCE;
+    //防止指令重排(内部有其他复杂的成员变量,会导致未完全处理完成就返回,从而导致NullPointerException)
+    private volatile static LazySingleton04 INSTANCE;
 
     private LazySingleton04(){}
 

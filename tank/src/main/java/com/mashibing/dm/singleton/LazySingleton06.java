@@ -8,6 +8,7 @@ import java.util.stream.IntStream;
 /***********************
  * Description: 懒汉式<BR>
  *      针对线程不安全的问题,枚举
+ *      不仅可以解决线程同步,还可以防止反序列化(枚举类没有构造方法)
  * author: zhao.song
  * date: 2021/1/25 14:21
  * version: 1.0

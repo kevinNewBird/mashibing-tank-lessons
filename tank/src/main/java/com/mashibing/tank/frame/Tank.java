@@ -1,5 +1,8 @@
 package com.mashibing.tank.frame;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.awt.*;
 import java.util.Random;
 
@@ -11,6 +14,8 @@ import java.util.Random;
  ***********************/
 public class Tank {
 
+    private static Logger logger = LoggerFactory.getLogger(Tank.class);
+
     private Random r = new Random();
 
     public static final int WIDTH = ResourceMgr.goodTankD.getWidth();
@@ -19,7 +24,8 @@ public class Tank {
     Rectangle rect = new Rectangle();
 
     private int x, y;
-    private int speed = PropertyMgr.getInt("tankSpeed");;
+    private int speed = PropertyMgr.getInt("tankSpeed");
+    ;
     private Dir dir = Dir.DOWN;
     private boolean isLiving = true;
 
@@ -34,7 +40,9 @@ public class Tank {
     private boolean moving = false;
 
     //面向对象思想:保证这个类持有窗口类的引用
-    private TankFrame tf = null;
+    TankFrame tf = null;
+
+    FireStrategy fs;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -46,6 +54,16 @@ public class Tank {
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+        //通过配置文件的形式,避免策略模式代码的变动
+        try {
+            if (group == Group.GOOD) {
+                fs = (FireStrategy) Class.forName(PropertyMgr.getString("goodFs")).newInstance();
+            } else {
+                fs = (FireStrategy) Class.forName(PropertyMgr.getString("badFs")).newInstance();
+            }
+        } catch (Exception e) {
+            logger.error("坦克策略初始化失败!", e);
+        }
     }
 
     public Dir getDir() {
@@ -214,11 +232,12 @@ public class Tank {
      * @author zhao.song    2020/12/14 11:06
      */
     public void fire() {
-        int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + x;
-        int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + y;
-        this.tf.b = new Bullet(bX, bY, this.dir, group, this.tf);
-
-        tf.bulletContainer.add(this.tf.b);
+        fs.apply(this);
+//        int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + x;
+//        int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + y;
+//        this.tf.b = new Bullet(bX, bY, this.dir, group, this.tf);
+//
+//        tf.bulletContainer.add(this.tf.b);
     }
 
     public void die() {

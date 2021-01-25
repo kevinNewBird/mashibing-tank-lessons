@@ -34,8 +34,8 @@ public class TankFrame extends Frame {
     java.util.List<Tank> enemyTankContainer = new ArrayList<>();
 
     java.util.List<Explode> explodes = new ArrayList<>();
-
-    Bullet b = new Bullet(200, 200, Dir.DOWN, Group.GOOD, this);
+    //必须注掉,否则在创建TankFrame对象时会加入子弹容器
+//    Bullet b = new Bullet(200, 200, Dir.DOWN, Group.GOOD, this);
 
 
     public TankFrame() throws HeadlessException {
