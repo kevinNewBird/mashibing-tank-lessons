@@ -57,9 +57,9 @@ public class Tank {
         //通过配置文件的形式,避免策略模式代码的变动
         try {
             if (group == Group.GOOD) {
-                fs = (FireStrategy) Class.forName(PropertyMgr.getString("goodFs")).newInstance();
+                fs = (FireStrategy) Class.forName(PropertyMgr.getString("goodFs")).getDeclaredConstructor().newInstance();
             } else {
-                fs = (FireStrategy) Class.forName(PropertyMgr.getString("badFs")).newInstance();
+                fs = (FireStrategy) Class.forName(PropertyMgr.getString("badFs")).getDeclaredConstructor().newInstance();
             }
         } catch (Exception e) {
             logger.error("坦克策略初始化失败!", e);

@@ -8,8 +8,8 @@ package com.mashibing.tank.frame;
  ***********************/
 public class EveryDirStrategy implements FireStrategy<Tank> {
 
-    private EveryDirStrategy() {
-    }
+//    private EveryDirStrategy() {
+//    }
 
     @Override
     public void apply(Tank tank) {
@@ -39,11 +39,11 @@ public class EveryDirStrategy implements FireStrategy<Tank> {
      * @return {@link com.mashibing.tank.frame.DefaultStrategy}
      * @author zhao.song    2021/1/25 23:57
      */
-    public static EveryDirStrategy getInstance() {
-        return EveryDirStrategy.EveryDirStrategyHolder.INSTANCE;
-    }
-
-    private static class EveryDirStrategyHolder {
-        public static EveryDirStrategy INSTANCE = new EveryDirStrategy();
-    }
+//    public static EveryDirStrategy getInstance() {
+//        return EveryDirStrategy.EveryDirStrategyHolder.INSTANCE;
+//    }
+//
+//    private static class EveryDirStrategyHolder {
+//        public static EveryDirStrategy INSTANCE = new EveryDirStrategy();
+//    }
 }

@@ -8,8 +8,8 @@ package com.mashibing.tank.frame;
  ***********************/
 public class DefaultStrategy implements FireStrategy<Tank> {
 
-    private DefaultStrategy() {
-    }
+//    private DefaultStrategy() {
+//    }
 
 
     @Override
@@ -33,11 +33,11 @@ public class DefaultStrategy implements FireStrategy<Tank> {
      * @return {@link com.mashibing.tank.frame.DefaultStrategy}
      * @author zhao.song    2021/1/25 23:57
      */
-    public static DefaultStrategy getInstance() {
-        return DefaultStrategyHolder.INSTANCE;
-    }
-
-    private static class DefaultStrategyHolder {
-        public static DefaultStrategy INSTANCE = new DefaultStrategy();
-    }
+//    public static DefaultStrategy getInstance() {
+//        return DefaultStrategyHolder.INSTANCE;
+//    }
+//
+//    private static class DefaultStrategyHolder {
+//        public static DefaultStrategy INSTANCE = new DefaultStrategy();
+//    }
 }
