@@ -25,9 +25,12 @@ public class RegexMatchTest {
 
     final static String NUMBER_REGEX = "[1-9][0-9]*";
 
+
+    final static String URL_REGEX = "(^.+?\\.\\w*)(\\.[a-z]+)$";
+
     public static void main(String[] args) {
 
-        System.out.println(abstractContentByCount("12123", 2));
+//        System.out.println(abstractContentByCount("12123", 2));
 
 //        String str = "2321,2321|null|null";
 //        String[] array = str.split("[||,]");
@@ -42,6 +45,12 @@ public class RegexMatchTest {
         while( matcher.find()){
             System.out.println(matcher.group());
         }*/
+
+        final Pattern pattern = Pattern.compile(URL_REGEX,Pattern.CASE_INSENSITIVE);
+        final Matcher matcher = pattern.matcher("www.baidu.com");
+        while( matcher.find()){
+            System.out.println(matcher.group(1));
+        }
     }
 
     private static String abstractContentByCount(String srcContent, int tLen) {

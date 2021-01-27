@@ -1,4 +1,4 @@
-package com.mashibing.dm.strategy;
+package com.mashibing.dm.strategy.comparestrategy;
 
 /***********************
  * @Description: TODO 类描述<BR>
