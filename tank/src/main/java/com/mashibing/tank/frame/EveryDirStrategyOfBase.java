@@ -6,15 +6,15 @@ package com.mashibing.tank.frame;
  * @since: 2021/1/25 23:21
  * @version: 1.0
  ***********************/
-public class EveryDirStrategy implements FireStrategy<RectTank> {
+public class EveryDirStrategyOfBase implements FireStrategy<Tank> {
 
 //    private EveryDirStrategy() {
 //    }
 
     @Override
-    public void apply(RectTank tank) {
-        int bX = (tank.WIDTH - tank.WIDTH) / 2 + tank.getX();
-        int bY = (tank.HEIGHT - tank.HEIGHT) / 2 + tank.getY();
+    public void apply(Tank tank) {
+        int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + tank.getX();
+        int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + tank.getY();
         tank.tf.gf.createBullet(bX, bY, Dir.DOWN, tank.getGroup(), tank.tf);
         tank.tf.gf.createBullet(bX, bY, Dir.LEFT, tank.getGroup(), tank.tf);
         tank.tf.gf.createBullet(bX, bY, Dir.UP, tank.getGroup(), tank.tf);
@@ -36,7 +36,7 @@ public class EveryDirStrategy implements FireStrategy<RectTank> {
      * Description: 获取单例对象 <BR>
      *
      * @param :
-     * @return {@link com.mashibing.tank.frame.DefaultStrategy}
+     * @return {@link DefaultStrategyOfRect}
      * @author zhao.song    2021/1/25 23:57
      */
 //    public static EveryDirStrategy getInstance() {
