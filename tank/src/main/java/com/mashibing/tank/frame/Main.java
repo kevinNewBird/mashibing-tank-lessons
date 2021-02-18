@@ -21,7 +21,7 @@ public class Main {
         //初始化地方坦克
         for (int i = initTankCount; i > 0; i--) {
             tankFrame.enemyTankContainer.add(
-                    new Tank(50 + i * 100, 200, Dir.DOWN, Group.BAD, tankFrame));
+                    new RectTank(50 + i * 100, 200, Dir.DOWN, Group.BAD, tankFrame));
         }
 
         while (true) {

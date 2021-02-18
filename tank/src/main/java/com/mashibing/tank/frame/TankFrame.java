@@ -1,5 +1,6 @@
 package com.mashibing.tank.frame;
 
+import com.mashibing.tank.factory.*;
 import io.vavr.control.Try;
 
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.concurrent.TimeUnit;
@@ -20,20 +22,34 @@ import java.util.concurrent.TimeUnit;
  ***********************/
 public class TankFrame extends Frame {
 
+    //使用单例,无法通过配置文件的方式注入实例
+    GameFactory gf = null;
+
+    {
+        try {
+            gf = (GameFactory) Class.forName(PropertyMgr.getString("gameFactory")).getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     //16:9
     //窗口宽度
     public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
     //窗口高度
     public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
-    Tank mainTank = new Tank(200, 300, Dir.DOWN, Group.GOOD, this);
+    RectTank mainTank = new RectTank(200, 300, Dir.DOWN, Group.GOOD, this);
+
+
+
 
     //子弹容器,实现多个字段的输出
-    java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
+    java.util.List<BaseBullet> bulletContainer = new ArrayList<>();
 
-    java.util.List<Tank> enemyTankContainer = new ArrayList<>();
+    java.util.List<BaseTank> enemyTankContainer = new ArrayList<>();
 
-    java.util.List<Explode> explodes = new ArrayList<>();
+    java.util.List<BaseExplode> explodes = new ArrayList<>();
     //必须注掉,否则在创建TankFrame对象时会加入子弹容器
 //    Bullet b = new Bullet(200, 200, Dir.DOWN, Group.GOOD, this);
 
@@ -100,11 +116,11 @@ public class TankFrame extends Frame {
         mainTank.paint(g);
 
         for (int i = 0; i < enemyTankContainer.size(); i++) {
-            Tank enemyTank = enemyTankContainer.get(i);
-            if (enemyTank.getGroup() == Group.GOOD) {
-                continue;
-            }
-            enemyTank.setMoving(true);
+            BaseTank enemyTank = enemyTankContainer.get(i);
+//            if (enemyTank.getGroup() == Group.GOOD) {
+//                continue;
+//            }
+//            enemyTank.setMoving(true);
             enemyTank.paint(g);
         }
 

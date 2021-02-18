@@ -5,18 +5,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.Arrays;
-import java.util.List;
 
 /***********************
- * Description: 爆炸效果 <BR>
- * author: zhao.song
- * date: 2020/12/31 10:06
- * version: 1.0
+ * @Description: TODO 类描述<BR>
+ * @author: zhao.song
+ * @since: 2021/2/18 13:58
+ * @version: 1.0
  ***********************/
-public class Explode extends BaseExplode {
-
+public class RectExplode extends BaseExplode {
     private Logger logger = LoggerFactory.getLogger(Explode.class);
 
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
@@ -33,7 +29,7 @@ public class Explode extends BaseExplode {
     private int step;
 
 
-    public Explode(int x, int y, TankFrame tf) {
+    public RectExplode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;
@@ -52,11 +48,18 @@ public class Explode extends BaseExplode {
     //如何画:使用一个常数记录步骤
     @Override
     public void paint(Graphics g) {
-        if (step >= ResourceMgr.explodes.length) {
+        Color c = g.getColor();
+        g.setColor(Color.RED);
+//        g.drawImage(ResourceMgr.explodes[step++], x, y, null);
+        g.fillRect(x, y, 10 * step, 10 * step);
+        step++;
+
+        if (step >= 5) {
             this.tf.explodes.remove(this);
             return;
         }
+        g.setColor(c);
 
-        g.drawImage(ResourceMgr.explodes[step++], x, y, null);
+
     }
 }

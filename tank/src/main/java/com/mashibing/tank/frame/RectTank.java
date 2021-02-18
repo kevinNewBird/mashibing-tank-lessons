@@ -13,9 +13,9 @@ import java.util.Random;
  * @date: 2020/11/18 0:58
  * @version: 1.0
  ***********************/
-public class Tank extends BaseTank {
+public class RectTank extends BaseTank {
 
-    private static Logger logger = LoggerFactory.getLogger(Tank.class);
+    private static Logger logger = LoggerFactory.getLogger(RectTank.class);
 
     private Random r = new Random();
 
@@ -45,7 +45,7 @@ public class Tank extends BaseTank {
 
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectTank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -111,12 +111,12 @@ public class Tank extends BaseTank {
 
         if (this.x < 2) {
             x = 2;
-        } else if (this.x > TankFrame.GAME_WIDTH - Tank.WIDTH - 2) {
-            x = TankFrame.GAME_WIDTH - Tank.WIDTH - 2;
+        } else if (this.x > TankFrame.GAME_WIDTH - RectTank.WIDTH - 2) {
+            x = TankFrame.GAME_WIDTH - RectTank.WIDTH - 2;
         } else if (this.y < 30) {
             y = 30;
-        } else if (this.y > TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2) {
-            y = TankFrame.GAME_HEIGHT - Tank.HEIGHT - 2;
+        } else if (this.y > TankFrame.GAME_HEIGHT - RectTank.HEIGHT - 2) {
+            y = TankFrame.GAME_HEIGHT - RectTank.HEIGHT - 2;
         }
     }
 

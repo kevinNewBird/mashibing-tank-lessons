@@ -12,7 +12,7 @@ import java.awt.*;
  * @date: 2020/11/19 0:32
  * @version: 1.0
  ***********************/
-public class Bullet extends BaseBullet<Tank> {
+public class RectBullet extends BaseBullet<RectTank> {
 
 
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
@@ -31,6 +31,7 @@ public class Bullet extends BaseBullet<Tank> {
 
     //子弹速度
     private final int SPEED = PropertyMgr.getInt("bulletSpeed");
+    ;
 
     private boolean isLiving = true;
 
@@ -38,7 +39,7 @@ public class Bullet extends BaseBullet<Tank> {
         return isLiving;
     }
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -72,20 +73,10 @@ public class Bullet extends BaseBullet<Tank> {
      * @author zhao.song    2020/12/22 19:51
      */
     private void drawAppearance(Graphics g) {
-        switch (dir) {
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
-                break;
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, 20, 20);
+        g.setColor(c);
     }
 
     private void move() {
@@ -113,7 +104,7 @@ public class Bullet extends BaseBullet<Tank> {
         }
     }
 
-    public void collideWithTank(Tank tank) {
+    public void collideWithTank(RectTank tank) {
 
         if (this.group == tank.getGroup()) return;
 

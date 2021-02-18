@@ -6,17 +6,17 @@ package com.mashibing.tank.frame;
  * @since: 2021/1/25 23:21
  * @version: 1.0
  ***********************/
-public class DefaultStrategy implements FireStrategy<Tank> {
+public class DefaultStrategy implements FireStrategy<RectTank> {
 
 //    private DefaultStrategy() {
 //    }
 
 
     @Override
-    public void apply(Tank tank) {
-        int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + tank.getX();
-        int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + tank.getY();
-        new Bullet(bX, bY, tank.getDir(), tank.getGroup(), tank.tf);
+    public void apply(RectTank tank) {
+        int bX = (tank.WIDTH - Bullet.WIDTH) / 2 + tank.getX();
+        int bY = (tank.HEIGHT - Bullet.HEIGHT) / 2 + tank.getY();
+        tank.tf.gf.createBullet(bX, bY, tank.getDir(), tank.getGroup(), tank.tf);
 
         //在构造方法中,加入容器
 //        tank.tf.bulletContainer.add(tank.tf.b);

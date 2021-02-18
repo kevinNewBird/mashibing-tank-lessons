@@ -6,19 +6,19 @@ package com.mashibing.tank.frame;
  * @since: 2021/1/25 23:21
  * @version: 1.0
  ***********************/
-public class EveryDirStrategy implements FireStrategy<Tank> {
+public class EveryDirStrategy implements FireStrategy<RectTank> {
 
 //    private EveryDirStrategy() {
 //    }
 
     @Override
-    public void apply(Tank tank) {
-        int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + tank.getX();
-        int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + tank.getY();
-        Bullet b1 = new Bullet(bX, bY, Dir.DOWN, tank.getGroup(), tank.tf);
-        Bullet b2 = new Bullet(bX, bY, Dir.LEFT, tank.getGroup(), tank.tf);
-        Bullet b3 = new Bullet(bX, bY, Dir.UP, tank.getGroup(), tank.tf);
-        Bullet b4 = new Bullet(bX, bY, Dir.RIGHT, tank.getGroup(), tank.tf);
+    public void apply(RectTank tank) {
+        int bX = (tank.WIDTH - tank.WIDTH) / 2 + tank.getX();
+        int bY = (tank.HEIGHT - tank.HEIGHT) / 2 + tank.getY();
+        tank.tf.gf.createBullet(bX, bY, Dir.DOWN, tank.getGroup(), tank.tf);
+        tank.tf.gf.createBullet(bX, bY, Dir.LEFT, tank.getGroup(), tank.tf);
+        tank.tf.gf.createBullet(bX, bY, Dir.UP, tank.getGroup(), tank.tf);
+        tank.tf.gf.createBullet(bX, bY, Dir.RIGHT, tank.getGroup(), tank.tf);
 
 
         //在构建bullet对象时,放入容器
