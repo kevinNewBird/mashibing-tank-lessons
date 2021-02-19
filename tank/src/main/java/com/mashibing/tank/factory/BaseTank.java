@@ -12,6 +12,15 @@ import java.awt.*;
  ***********************/
 public abstract class BaseTank {
 
+    public Rectangle rect = new Rectangle();
+
+    protected Group group = Group.BAD;
+
     public abstract void paint(Graphics g);
 
+    public Group getGroup(){
+        return this.group;
+    }
+
+    public abstract void die();
 }

@@ -22,15 +22,11 @@ public class Tank extends BaseTank {
     public static final int WIDTH = ResourceMgr.goodTankD.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankD.getHeight();
 
-    Rectangle rect = new Rectangle();
-
     private int x, y;
     private int speed = PropertyMgr.getInt("tankSpeed");
     ;
     private Dir dir = Dir.DOWN;
     private boolean isLiving = true;
-
-    private Group group = Group.BAD;
 
     //--------------------用于切换坦克的灯光效果------------------
 //    private int step = 0;
@@ -50,7 +46,7 @@ public class Tank extends BaseTank {
         this.y = y;
         this.dir = dir;
         this.tf = tf;
-        this.group = group;
+        super.group = group;
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
