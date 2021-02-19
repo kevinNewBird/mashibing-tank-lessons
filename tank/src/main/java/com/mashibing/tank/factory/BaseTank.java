@@ -1,5 +1,6 @@
 package com.mashibing.tank.factory;
 
+import com.mashibing.tank.frame.Dir;
 import com.mashibing.tank.frame.Group;
 
 import java.awt.*;
@@ -23,4 +24,10 @@ public abstract class BaseTank {
     }
 
     public abstract void die();
+
+    public abstract void fire();
+
+    public abstract void setMoving(boolean isMoving);
+
+    public abstract void setDir(Dir dir);
 }

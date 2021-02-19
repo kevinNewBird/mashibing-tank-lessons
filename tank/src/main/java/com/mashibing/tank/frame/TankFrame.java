@@ -39,7 +39,7 @@ public class TankFrame extends Frame {
     //窗口高度
     public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
 
-    RectTank mainTank = new RectTank(200, 300, Dir.DOWN, Group.GOOD, this);
+    BaseTank mainTank = gf.createTank(200, 300, Dir.DOWN, Group.GOOD, this);
 
 
 
