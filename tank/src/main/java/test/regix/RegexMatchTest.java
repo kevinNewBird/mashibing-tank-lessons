@@ -32,10 +32,10 @@ public class RegexMatchTest {
 
 //        System.out.println(abstractContentByCount("12123", 2));
 
-//        String str = "2321,2321|null|null";
-//        String[] array = str.split("[||,]");
-//        List<String> collect = Arrays.stream(array).filter(tmpStr -> Pattern.compile(NUMBER_REGEX).matcher(tmpStr).find()).distinct().collect(Collectors.toList());
-//        System.out.println(collect);
+        String str = "2321,232223232|null|232";
+        String[] array = str.split("[||,]");
+        String s = Arrays.stream(array).filter(tmpStr -> Pattern.compile(NUMBER_REGEX).matcher(tmpStr).find()).distinct().collect(Collectors.joining(","));
+        System.out.println(s);
 
 
 /*        System.out.println(getStr("I我", "utf-8"));
@@ -46,11 +46,11 @@ public class RegexMatchTest {
             System.out.println(matcher.group());
         }*/
 
-        final Pattern pattern = Pattern.compile(URL_REGEX,Pattern.CASE_INSENSITIVE);
-        final Matcher matcher = pattern.matcher("www.baidu.com");
-        while( matcher.find()){
-            System.out.println(matcher.group(1));
-        }
+//        final Pattern pattern = Pattern.compile(URL_REGEX,Pattern.CASE_INSENSITIVE);
+//        final Matcher matcher = pattern.matcher("www.baidu.com");
+//        while( matcher.find()){
+//            System.out.println(matcher.group(1));
+//        }
     }
 
     private static String abstractContentByCount(String srcContent, int tLen) {
