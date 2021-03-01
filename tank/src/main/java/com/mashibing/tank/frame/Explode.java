@@ -22,7 +22,7 @@ public class Explode {
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
 
 
-    TankFrame tf = null;
+    GameModel gm = null;
 
     private boolean isLiving;
 
@@ -32,10 +32,10 @@ public class Explode {
     private int step;
 
 
-    public Explode(int x, int y, TankFrame tf) {
+    public Explode(int x, int y, GameModel gm) {
         this.x = x;
         this.y = y;
-        this.tf = tf;
+        this.gm = gm;
         new Audio("audios/explode.wav").start();
         logger.info("目标被摧毁!");
     }
@@ -51,7 +51,7 @@ public class Explode {
     //如何画:使用一个常数记录步骤
     public void paint(Graphics g) {
         if (step >= ResourceMgr.explodes.length) {
-            this.tf.explodes.remove(this);
+            this.gm.explodes.remove(this);
             return;
         }
 

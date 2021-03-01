@@ -15,17 +15,17 @@ public class EveryDirStrategy implements FireStrategy<Tank> {
     public void apply(Tank tank) {
         int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + tank.getX();
         int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + tank.getY();
-        Bullet b1 = new Bullet(bX, bY, Dir.DOWN, tank.getGroup(), tank.tf);
-        Bullet b2 = new Bullet(bX, bY, Dir.LEFT, tank.getGroup(), tank.tf);
-        Bullet b3 = new Bullet(bX, bY, Dir.UP, tank.getGroup(), tank.tf);
-        Bullet b4 = new Bullet(bX, bY, Dir.RIGHT, tank.getGroup(), tank.tf);
+        Bullet b1 = new Bullet(bX, bY, Dir.DOWN, tank.getGroup(), tank.gm);
+        Bullet b2 = new Bullet(bX, bY, Dir.LEFT, tank.getGroup(), tank.gm);
+        Bullet b3 = new Bullet(bX, bY, Dir.UP, tank.getGroup(), tank.gm);
+        Bullet b4 = new Bullet(bX, bY, Dir.RIGHT, tank.getGroup(), tank.gm);
 
 
         //在构建bullet对象时,放入容器
-//        tank.tf.bulletContainer.add(b1);
-//        tank.tf.bulletContainer.add(b2);
-//        tank.tf.bulletContainer.add(b3);
-//        tank.tf.bulletContainer.add(b4);
+//        tank.gm.bulletContainer.add(b1);
+//        tank.gm.bulletContainer.add(b2);
+//        tank.gm.bulletContainer.add(b3);
+//        tank.gm.bulletContainer.add(b4);
 
         if (tank.getGroup()==Group.GOOD){
             new Audio("audios/tank_fire.wav").start();

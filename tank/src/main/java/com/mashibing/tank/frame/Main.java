@@ -13,20 +13,12 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException, IOException {
 
-
         TankFrame tankFrame = new TankFrame();
 
-        int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount").orElse(10).toString());
-//        tankFrame.enemyTankContainer.add(tankFrame.mainTank);
-        //初始化地方坦克
-        for (int i = initTankCount; i > 0; i--) {
-            tankFrame.enemyTankContainer.add(
-                    new Tank(50 + i * 100, 200, Dir.DOWN, Group.BAD, tankFrame));
-        }
-
+        // 背景音乐
+//        new Audio("audios/war1.wav").start();
         while (true) {
-            // 背景音乐
-//            new Audio("audios/war1.wav").start();
+
             TimeUnit.MILLISECONDS.sleep(50);
             //刷新窗口,repaint方法会主动调用paint方法
             tankFrame.repaint();

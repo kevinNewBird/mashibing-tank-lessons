@@ -20,23 +20,13 @@ import java.util.concurrent.TimeUnit;
  ***********************/
 public class TankFrame extends Frame {
 
+    GameModel gm = new GameModel();
+
     //16:9
     //窗口宽度
     public static final int GAME_WIDTH = PropertyMgr.getInt("gameWidth");
     //窗口高度
     public static final int GAME_HEIGHT = PropertyMgr.getInt("gameHeight");
-
-    Tank mainTank = new Tank(200, 300, Dir.DOWN, Group.GOOD, this);
-
-    //子弹容器,实现多个字段的输出
-    java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
-
-    java.util.List<Tank> enemyTankContainer = new ArrayList<>();
-
-    java.util.List<Explode> explodes = new ArrayList<>();
-    //必须注掉,否则在创建TankFrame对象时会加入子弹容器
-//    Bullet b = new Bullet(200, 200, Dir.DOWN, Group.GOOD, this);
-
 
     public TankFrame() throws HeadlessException {
         // 2.设置窗口参数
@@ -50,7 +40,7 @@ public class TankFrame extends Frame {
         // 3.设置窗口可见
         setVisible(true);
 
-        addKeyListener(new TankFrame.MyKeyListener());
+        addKeyListener(new MyKeyListener());
         // 4.添加一个window监听器
         addWindowListener(new WindowAdapter() {
 
@@ -89,60 +79,8 @@ public class TankFrame extends Frame {
     //窗口需要重新绘制的时候,自动调用该方法(1.窗口第一次显示的时候,2.窗口被别人盖住又显示出来的时候,3.窗口改变大小的时候)
     @Override
     public void paint(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.YELLOW);
-        g.drawString("子弹数量:" + bulletContainer.size(), 10, 50);
-        g.drawString("敌坦数量:" + (enemyTankContainer.size()), 10, 80);
-        g.drawString("爆炸数量:" + (explodes.size()), 10, 110);
-        g.setColor(c);
-        // tip: 面向对象的思维:应该是将画笔递给坦克,坦克最知道该如何移动
-        // ,而不是把tank的属性获取到再去设置
-        mainTank.paint(g);
+        gm.paint(g);
 
-        for (int i = 0; i < enemyTankContainer.size(); i++) {
-            Tank enemyTank = enemyTankContainer.get(i);
-            if (enemyTank.getGroup() == Group.GOOD) {
-                continue;
-            }
-            enemyTank.setMoving(true);
-            enemyTank.paint(g);
-        }
-
-
-/*        bulletContainer.forEach(bullet -> {
-            //思考问题: 打出去的子弹是否该移出容器? 应该怎样移出容器?
-            //ans:1.不可以,因为每次都是重画窗口,如果移出会导致子弹消失;
-            // 2.如果不移出,就需要考虑内存的优化,集合不可一直增大
-            bullet.paint(g);
-            if (bullet.getX() > this.GAME_WIDTH || bullet.getY() > this.GAME_HEIGHT) {
-                bulletContainer.remove(bullet);
-            }
-        });*/
-        // 1.可行解决方案一
-/*        ListIterator<Bullet> iterator = bulletContainer.listIterator();
-        while (iterator.hasNext()) {
-            Bullet bullet = iterator.next();
-            bullet.paint(g);
-            if (bullet.getX() > this.GAME_WIDTH || bullet.getY() > this.GAME_HEIGHT) {
-                iterator.remove();
-            }
-
-        }*/
-        // 2.可行解决方案二:
-        for (int i = 0; i < bulletContainer.size(); i++) {
-            bulletContainer.get(i).paint(g);
-        }
-
-        // 3.碰撞判断
-        for (int i = bulletContainer.size() - 1; i >= 0; i--) {
-            for (int j = enemyTankContainer.size() - 1; j >= 0; j--) {
-                bulletContainer.get(i).collideWithTank(enemyTankContainer.get(j));
-            }
-        }
-
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
     }
 
 
@@ -194,7 +132,8 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                     mainTank.fire();
+                    //相当于Controller(调用视图层,控制model层做出响应)
+                    gm.getMainTank().fire();
 //                    bulletContainer.add(b);
                     break;
                 default:
@@ -204,7 +143,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-//            Tank mainTank = getMainTank();
+            Tank mainTank = gm.getMainTank();
             if (!bL && !bU && !bR && !bD) {
                 mainTank.setMoving(false);
             } else {

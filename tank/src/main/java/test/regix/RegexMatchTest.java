@@ -1,6 +1,7 @@
 package test.regix;
 
 import com.sun.prism.impl.shape.BasicRoundRectRep;
+import org.springframework.util.StringUtils;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -28,7 +29,20 @@ public class RegexMatchTest {
 
     final static String URL_REGEX = "(^.+?\\.\\w*)(\\.[a-z]+)$";
 
+    final static String DEMO_SQL = "Title,DOCTYPE,ifnull(ORIGINMETADATAID,0) ORIGINMETADATAID,CRUSER,FgdError,SrcMetaDataId,attachpic,attachaudio,attachvideo,METALOGOURL,FlowVersionTime,DOCWORDSCOUNT,Abstract,ISCOMMENTED,MediaTypes,-1 as MediaType,ChannelId,TenantId,CASE WHEN wcmmetatablereleasesource.METADATAID IN" +
+            " ( SELECT xwcmnewreportmetadata.METADATAID FROM xwcmnewreportmetadata WHERE REPORTID = 2 ) THEN 1 ELSE 0 END AS IsRelate";
+
+    final static String DEMO_SQL2 = "Title,DOCTYPE,ifnull(ORIGINMETADATAID,0) ORIGINMETADATAID,CRUSER,FgdError,SrcMetaDataId,attachpic,attachaudio,attachvideo,METALOGOURL,FlowVersionTime,DOCWORDSCOUNT,Abstract,ISCOMMENTED,MediaTypes,-1 as MediaType,ChannelId,TenantId";
+    // SQL 注入判断规则
+    // add by caohui@2017年1月3日 下午8:14:44
+    public static final String KEYWORDS_DEFAULT = "delete|update|insert"
+            + "|outfile|extractvalue|updatexml|floor|NAME_CONST"
+            + "|sleep|dumpfile|benchmark|exp";
+    public static final String KEYWORDS_SELECT = KEYWORDS_DEFAULT
+            + "|select|from";
+
     public static void main(String[] args) {
+        System.out.println(containsInjectKeyWord(DEMO_SQL2, KEYWORDS_SELECT));
 
 //        System.out.println(abstractContentByCount("12123", 2));
 
@@ -60,7 +74,7 @@ public class RegexMatchTest {
         int oLen = srcContent.length();
         if (oLen <= tLen) {
             return srcContent;
-        }else {
+        } else {
             return srcContent.substring(0, tLen);
         }
     }
@@ -72,9 +86,9 @@ public class RegexMatchTest {
                 byte[] var2 = new byte[var0.length()];
                 char[] var3 = var0.toCharArray();
 
-                for(int var4 = var2.length - 1; var4 >= 0; --var4) {
+                for (int var4 = var2.length - 1; var4 >= 0; --var4) {
                     System.out.println(var3[var4]);
-                    var2[var4] = (byte)var3[var4];
+                    var2[var4] = (byte) var3[var4];
                     System.out.println(var2[var4]);
                 }
 
@@ -85,6 +99,26 @@ public class RegexMatchTest {
         } else {
             return var0;
         }
+    }
+
+    // 用变量替换成需要的表达式
+    // "(?i)((^|[^a-zA-Z]+)(delete|update|insert)([^a-zA-Z]+|$))"
+    public static final String REG_INJECT_SQL_PRE = "(?i)((^|[^a-zA-Z]+)(";
+
+    public static final String REG_INJECT_SQL_SUF = ")([^a-zA-Z]+|$))";
+
+
+    public final static boolean containsInjectKeyWord(String _sSQL,
+                                                      String _sKeyWords) {
+        if (StringUtils.isEmpty(_sSQL))
+            return false;
+
+        // 用变量替换成需要的表达式
+        // "(?i)((^|[^a-zA-Z]+)(delete|update|insert)([^a-zA-Z]+|$))"
+        Pattern oPattern = Pattern.compile(REG_INJECT_SQL_PRE + _sKeyWords
+                + REG_INJECT_SQL_SUF);
+        Matcher oMatcher = oPattern.matcher(_sSQL);
+        return oMatcher.find();
     }
 
 

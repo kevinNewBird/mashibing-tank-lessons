@@ -40,15 +40,15 @@ public class Tank {
     private boolean moving = false;
 
     //面向对象思想:保证这个类持有窗口类的引用
-    TankFrame tf = null;
+    GameModel gm = null;
 
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.tf = tf;
+        this.gm = gm;
         this.group = group;
         rect.x = this.x;
         rect.y = this.y;
@@ -87,7 +87,7 @@ public class Tank {
     public synchronized void paint(Graphics g) {
         // 1.tank被击中,停止描绘
         if (!isLiving) {
-            tf.enemyTankContainer.remove(this);
+            gm.enemyTankContainer.remove(this);
             return;
         }
 //        g.setColor(Color.BLUE);
@@ -235,9 +235,9 @@ public class Tank {
         fs.apply(this);
 //        int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + x;
 //        int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + y;
-//        this.tf.b = new Bullet(bX, bY, this.dir, group, this.tf);
+//        this.gm.b = new Bullet(bX, bY, this.dir, group, this.gm);
 //
-//        tf.bulletContainer.add(this.tf.b);
+//        gm.bulletContainer.add(this.gm.b);
     }
 
     public void die() {
