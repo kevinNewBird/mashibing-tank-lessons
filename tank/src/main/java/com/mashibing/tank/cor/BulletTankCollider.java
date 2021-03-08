@@ -1,9 +1,6 @@
 package com.mashibing.tank.cor;
 
-import com.mashibing.tank.frame.Bullet;
-import com.mashibing.tank.frame.Explode;
-import com.mashibing.tank.frame.GameObject;
-import com.mashibing.tank.frame.Tank;
+import com.mashibing.tank.frame.*;
 
 /***********************
  * @Description: 子弹坦克的碰撞器 <BR>
@@ -46,7 +43,7 @@ public class BulletTankCollider implements Collider {
         if (tank.rect.intersects(bullet.rect)) {
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            bullet.gm.add(new Explode(eX, eY, bullet.gm));
+            GameModel.getInstance().add(new Explode(eX, eY));
             tank.die();
             bullet.die();
             return true;

@@ -19,7 +19,6 @@ public class Bullet extends GameObject {
 
     public Group group = Group.BAD;
 
-    public GameModel gm;
     //子弹位置
     private int x, y;
 
@@ -35,24 +34,23 @@ public class Bullet extends GameObject {
         return isLiving;
     }
 
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        gm.add(this);
+        GameModel.getInstance().add(this);
     }
 
 
     public void paint(Graphics g) {
         if (!isLiving) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
         }
 
         drawAppearance(g);

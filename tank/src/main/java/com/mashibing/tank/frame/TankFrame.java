@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  ***********************/
 public class TankFrame extends Frame {
 
-    GameModel gm = new GameModel();
+    GameModel gm = GameModel.getInstance();
 
     //16:9
     //窗口宽度

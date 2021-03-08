@@ -41,16 +41,12 @@ public class Tank extends GameObject {
     // 坦克的状态:禁止false/移动move;这个不应该是一个方向,仅仅表示坦克的一个运动状态
     private boolean moving = true;
 
-    //面向对象思想:保证这个类持有窗口类的引用
-    GameModel gm = null;
-
     FireStrategy fs;
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
-        this.gm = gm;
         this.group = group;
         rect.x = this.x;
         rect.y = this.y;
@@ -66,6 +62,7 @@ public class Tank extends GameObject {
         } catch (Exception e) {
             logger.error("坦克策略初始化失败!", e);
         }
+        GameModel.getInstance().add(this);
     }
 
     public Dir getDir() {
@@ -89,7 +86,7 @@ public class Tank extends GameObject {
     public synchronized void paint(Graphics g) {
         // 1.tank被击中,停止描绘
         if (!isLiving) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
             return;
         }
 //        g.setColor(Color.BLUE);
@@ -250,7 +247,7 @@ public class Tank extends GameObject {
     }
 
     //坦克相撞后,回到上一次的位置
-    public void back(){
+    public void back() {
         this.x = oldX;
         this.y = oldY;
     }

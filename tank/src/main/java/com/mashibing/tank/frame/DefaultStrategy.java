@@ -16,7 +16,7 @@ public class DefaultStrategy implements FireStrategy<Tank> {
     public void apply(Tank tank) {
         int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + tank.getX();
         int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + tank.getY();
-        new Bullet(bX, bY, tank.getDir(), tank.getGroup(), tank.gm);
+        new Bullet(bX, bY, tank.getDir(), tank.getGroup());
 
         //在构造方法中,加入容器
 //        tank.gm.bulletContainer.add(tank.gm.b);

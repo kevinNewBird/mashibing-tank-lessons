@@ -15,10 +15,10 @@ public class EveryDirStrategy implements FireStrategy<Tank> {
     public void apply(Tank tank) {
         int bX = (Tank.WIDTH - Bullet.WIDTH) / 2 + tank.getX();
         int bY = (Tank.HEIGHT - Bullet.HEIGHT) / 2 + tank.getY();
-        Bullet b1 = new Bullet(bX, bY, Dir.DOWN, tank.getGroup(), tank.gm);
-        Bullet b2 = new Bullet(bX, bY, Dir.LEFT, tank.getGroup(), tank.gm);
-        Bullet b3 = new Bullet(bX, bY, Dir.UP, tank.getGroup(), tank.gm);
-        Bullet b4 = new Bullet(bX, bY, Dir.RIGHT, tank.getGroup(), tank.gm);
+        Bullet b1 = new Bullet(bX, bY, Dir.DOWN, tank.getGroup());
+        Bullet b2 = new Bullet(bX, bY, Dir.LEFT, tank.getGroup());
+        Bullet b3 = new Bullet(bX, bY, Dir.UP, tank.getGroup());
+        Bullet b4 = new Bullet(bX, bY, Dir.RIGHT, tank.getGroup());
 
 
         //在构建bullet对象时,放入容器

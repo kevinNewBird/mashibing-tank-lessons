@@ -17,8 +17,28 @@ import java.util.ArrayList;
  ***********************/
 public class GameModel {
 
+    //做成单例的目的,降低游戏物体的耦合度
+    public static GameModel getInstance() {
+        return GameModelHolder.INSTANCE;
+    }
 
-    Tank mainTank = new Tank(200, 300, Dir.DOWN, Group.GOOD, this);
+    private static class GameModelHolder {
+        public static GameModel INSTANCE = new GameModel();
+    }
+
+    static {
+        getInstance().init();
+    }
+
+    private void init(){
+        //0.初始化坦克
+        initTank();
+        //1.初始化墙
+        initWall();
+    }
+
+
+    Tank mainTank;
 
     //子弹容器,实现多个字段的输出
 //    java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
@@ -33,11 +53,8 @@ public class GameModel {
 
     ColliderChain chain = new ColliderChain();
 
-    public GameModel() {
-        //0.初始化坦克
-        initTank();
-        //1.初始化墙
-        initWall();
+    private GameModel() {
+
     }
 
     public void add(GameObject go) {
@@ -57,19 +74,20 @@ public class GameModel {
      * @author zhao.song    2021/3/1 15:39
      */
     public void initTank() {
+        mainTank = new Tank(200, 300, Dir.DOWN, Group.GOOD);
+        mainTank.setMoving(false);
         int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount").orElse(10).toString());
 //        tankFrame.enemyTankContainer.add(tankFrame.mainTank);
         //初始化地方坦克
         for (int i = initTankCount; i > 0; i--) {
-            add(
-                    new Tank(50 + i * 100, 200, Dir.DOWN, Group.BAD, this));
+            new Tank(50 + i * 100, 200, Dir.DOWN, Group.BAD);
         }
     }
 
     public void initWall() {
-        add(new Wall(300, 300, 40, 200, this));
-        add(new Wall(800, 300, 40, 200, this));
-        add(new Wall(400, 150, 300, 40, this));
+        add(new Wall(300, 300, 40, 200));
+        add(new Wall(800, 300, 40, 200));
+        add(new Wall(400, 150, 300, 40));
     }
 
 

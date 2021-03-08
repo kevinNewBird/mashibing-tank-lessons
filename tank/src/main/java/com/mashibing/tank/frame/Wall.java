@@ -17,14 +17,12 @@ public class Wall extends GameObject {
     //记录墙体的宽高
     int w, h;
 
-    private GameModel gm;
 
-    public Wall(int x, int y, int width, int height,GameModel gm) {
+    public Wall(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.w = width;
         this.h = height;
-        this.gm = gm;
         rect.x = x;
         rect.y = y;
         rect.width = width;
