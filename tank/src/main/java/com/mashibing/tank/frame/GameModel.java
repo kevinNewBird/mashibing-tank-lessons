@@ -1,8 +1,11 @@
 package com.mashibing.tank.frame;
 
+import com.mashibing.tank.cor.BulletTankCollider;
+import com.mashibing.tank.cor.Collider;
+import com.mashibing.tank.cor.ColliderChain;
+import com.mashibing.tank.cor.TankTankCollider;
+
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 /***********************
@@ -18,57 +21,94 @@ public class GameModel {
     Tank mainTank = new Tank(200, 300, Dir.DOWN, Group.GOOD, this);
 
     //子弹容器,实现多个字段的输出
-    java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
+//    java.util.List<Bullet> bulletContainer = new ArrayList<Bullet>();
+//
+//    java.util.List<Tank> enemyTankContainer = new ArrayList<>();
+//
+//    java.util.List<Explode> explodes = new ArrayList<>();
 
-    java.util.List<Tank> enemyTankContainer = new ArrayList<>();
-
-    java.util.List<Explode> explodes = new ArrayList<>();
+    private java.util.List<GameObject> objects = new ArrayList<>();
     //必须注掉,否则在创建TankFrame对象时会加入子弹容器
 //    Bullet b = new Bullet(200, 200, Dir.DOWN, Group.GOOD, this);
 
+    ColliderChain chain = new ColliderChain();
 
     public GameModel() {
         //0.初始化坦克
         initTank();
     }
 
+    public void add(GameObject go) {
+        this.objects.add(go);
+    }
+
+    public boolean remove(GameObject go) {
+        return this.objects.remove(go);
+    }
+
+
     /**
      * Description: 初始化坦克 <BR>
      *
-     * @author zhao.song    2021/3/1 15:39
      * @param :
      * @return
+     * @author zhao.song    2021/3/1 15:39
      */
-    public void initTank(){
+    public void initTank() {
         int initTankCount = Integer.parseInt(PropertyMgr.get("initTankCount").orElse(10).toString());
 //        tankFrame.enemyTankContainer.add(tankFrame.mainTank);
         //初始化地方坦克
         for (int i = initTankCount; i > 0; i--) {
-            enemyTankContainer.add(
+            add(
                     new Tank(50 + i * 100, 200, Dir.DOWN, Group.BAD, this));
         }
     }
 
 
     public void paint(Graphics g) {
+
+//        Map<String, List<GameObject>> map = objects.stream().collect(Collectors.groupingBy(go -> {
+//            if (go instanceof Bullet) {
+//                return "bullet";
+//            } else if (go instanceof Tank) {
+//                return "tank";
+//            } else if (go instanceof Explode) {
+//                return "explode";
+//            }
+//            return "default";
+//        }));
+//        List<GameObject> bulletContainer = map.get("bullet") == null ? new ArrayList() : map.get("bullet");
+//        List<GameObject> enemyTankContainer = map.get("tank") == null ? new ArrayList() : map.get("tank");
+//        List<GameObject> explodes = map.get("explode") == null ? new ArrayList() : map.get("explode");
+
+//        g.drawString("子弹数量:" + bulletContainer.size(), 10, 50);
+//        g.drawString("敌坦数量:" + (enemyTankContainer.size()), 10, 80);
+//        g.drawString("爆炸数量:" + (explodes.size()), 10, 110);
         Color c = g.getColor();
         g.setColor(Color.YELLOW);
-        g.drawString("子弹数量:" + bulletContainer.size(), 10, 50);
-        g.drawString("敌坦数量:" + (enemyTankContainer.size()), 10, 80);
-        g.drawString("爆炸数量:" + (explodes.size()), 10, 110);
         g.setColor(c);
         // tip: 面向对象的思维:应该是将画笔递给坦克,坦克最知道该如何移动
         // ,而不是把tank的属性获取到再去设置
         mainTank.paint(g);
 
-        for (int i = 0; i < enemyTankContainer.size(); i++) {
-            Tank enemyTank = enemyTankContainer.get(i);
-            if (enemyTank.getGroup() == Group.GOOD) {
-                continue;
-            }
-            enemyTank.setMoving(true);
-            enemyTank.paint(g);
+        for (int i = 0; i < objects.size(); i++) {
+            objects.get(i).paint(g);
         }
+
+        for (int i = 0; i < objects.size(); i++) {
+            for (int j = i + 1; j < objects.size(); j++) {
+                chain.collide(objects.get(i), objects.get(j));
+            }
+        }
+
+//        for (int i = 0; i < enemyTankContainer.size(); i++) {
+//            Tank enemyTank = (Tank) enemyTankContainer.get(i);
+//            if (enemyTank.getGroup() == Group.GOOD) {
+//                continue;
+//            }
+//            enemyTank.setMoving(true);
+//            enemyTank.paint(g);
+//        }
 
 
 /*        bulletContainer.forEach(bullet -> {
@@ -91,20 +131,21 @@ public class GameModel {
 
         }*/
         // 2.可行解决方案二:
-        for (int i = 0; i < bulletContainer.size(); i++) {
-            bulletContainer.get(i).paint(g);
-        }
+//        for (int i = 0; i < bulletContainer.size(); i++) {
+//            bulletContainer.get(i).paint(g);
+//        }
+
 
         // 3.碰撞判断
-        for (int i = bulletContainer.size() - 1; i >= 0; i--) {
-            for (int j = enemyTankContainer.size() - 1; j >= 0; j--) {
-                bulletContainer.get(i).collideWithTank(enemyTankContainer.get(j));
-            }
-        }
+//        for (int i = bulletContainer.size() - 1; i >= 0; i--) {
+//            for (int j = enemyTankContainer.size() - 1; j >= 0; j--) {
+//                ((Bullet) (bulletContainer.get(i))).collideWithTank((Tank) enemyTankContainer.get(j));
+//            }
+//        }
 
-        for (int i = 0; i < explodes.size(); i++) {
-            explodes.get(i).paint(g);
-        }
+//        for (int i = 0; i < explodes.size(); i++) {
+//            explodes.get(i).paint(g);
+//        }
     }
 
     public Tank getMainTank() {

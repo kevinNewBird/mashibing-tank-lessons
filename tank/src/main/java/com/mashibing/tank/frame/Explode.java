@@ -14,7 +14,7 @@ import java.util.List;
  * date: 2020/12/31 10:06
  * version: 1.0
  ***********************/
-public class Explode {
+public class Explode extends GameObject {
 
     private Logger logger = LoggerFactory.getLogger(Explode.class);
 
@@ -51,7 +51,7 @@ public class Explode {
     //如何画:使用一个常数记录步骤
     public void paint(Graphics g) {
         if (step >= ResourceMgr.explodes.length) {
-            this.gm.explodes.remove(this);
+            this.gm.remove(this);
             return;
         }
 

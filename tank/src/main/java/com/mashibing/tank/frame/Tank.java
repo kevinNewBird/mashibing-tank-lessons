@@ -12,7 +12,7 @@ import java.util.Random;
  * @date: 2020/11/18 0:58
  * @version: 1.0
  ***********************/
-public class Tank {
+public class Tank extends GameObject {
 
     private static Logger logger = LoggerFactory.getLogger(Tank.class);
 
@@ -21,9 +21,11 @@ public class Tank {
     public static final int WIDTH = ResourceMgr.goodTankD.getWidth();
     public static final int HEIGHT = ResourceMgr.goodTankD.getHeight();
 
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
     private int x, y;
+    // 记录坦克上一次的移动位置
+    public int oldX, oldY;
     private int speed = PropertyMgr.getInt("tankSpeed");
     ;
     private Dir dir = Dir.DOWN;
@@ -37,7 +39,7 @@ public class Tank {
     //--------------------用于切换坦克的灯光效果------------------
 
     // 坦克的状态:禁止false/移动move;这个不应该是一个方向,仅仅表示坦克的一个运动状态
-    private boolean moving = false;
+    private boolean moving = true;
 
     //面向对象思想:保证这个类持有窗口类的引用
     GameModel gm = null;
@@ -87,7 +89,7 @@ public class Tank {
     public synchronized void paint(Graphics g) {
         // 1.tank被击中,停止描绘
         if (!isLiving) {
-            gm.enemyTankContainer.remove(this);
+            gm.remove(this);
             return;
         }
 //        g.setColor(Color.BLUE);
@@ -166,6 +168,9 @@ public class Tank {
     }
 
     private void move() {
+        //记录上一次的移动位置
+        this.oldX = this.x;
+        this.oldY = this.y;
         if (!moving) return;
 
         switch (dir) {
@@ -242,5 +247,11 @@ public class Tank {
 
     public void die() {
         this.isLiving = false;
+    }
+
+    //坦克相撞后,回到上一次的位置
+    public void backStep(){
+        this.x = oldX;
+        this.y = oldY;
     }
 }

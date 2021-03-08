@@ -9,17 +9,17 @@ import java.awt.*;
  * @date: 2020/11/19 0:32
  * @version: 1.0
  ***********************/
-public class Bullet {
+public class Bullet extends GameObject {
 
 
     public static final int WIDTH = ResourceMgr.bulletD.getWidth();
     public static final int HEIGHT = ResourceMgr.bulletD.getHeight();
 
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
-    private GameModel gm;
+    public GameModel gm;
     //子弹位置
     private int x, y;
 
@@ -46,13 +46,13 @@ public class Bullet {
         rect.width = WIDTH;
         rect.height = HEIGHT;
 
-        gm.bulletContainer.add(this);
+        gm.add(this);
     }
 
 
     public void paint(Graphics g) {
         if (!isLiving) {
-            gm.bulletContainer.remove(this);
+            gm.remove(this);
         }
 
         drawAppearance(g);
@@ -109,28 +109,7 @@ public class Bullet {
         }
     }
 
-
-    public void collideWithTank(Tank tank) {
-        if (this.group == tank.getGroup()) return;
-
-        //使用awt下辅助类:获取坦克和子弹的矩形(每一次检测都会创建新对象,垃圾回收时间不受控制)
-        //好的做法在自己的类中成员变量Rectangle
-        //1.子弹得矩形框
-//        Rectangle rectBullet = new Rectangle(this.x, this.y, WIDTH, HEIGHT);
-
-        //2.坦克的矩形框
-//        Rectangle rectTank = new Rectangle(tank.getX(), tank.getY(), Tank.WIDTH, Tank.HEIGHT);
-
-        if (tank.rect.intersects(this.rect)) {
-            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gm.explodes.add(new Explode(eX, eY, gm));
-            tank.die();
-            this.die();
-        }
-    }
-
-    private void die() {
+    public void die() {
         this.isLiving = false;
     }
 }
