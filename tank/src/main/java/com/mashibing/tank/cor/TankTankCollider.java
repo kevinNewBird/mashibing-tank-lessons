@@ -1,7 +1,5 @@
 package com.mashibing.tank.cor;
 
-import com.mashibing.tank.frame.Bullet;
-import com.mashibing.tank.frame.Explode;
 import com.mashibing.tank.frame.GameObject;
 import com.mashibing.tank.frame.Tank;
 
@@ -27,8 +25,8 @@ public class TankTankCollider implements Collider {
             Tank t2 = (Tank) o2;
             //坦克相撞后,回到上一次的位置
             if (t1.rect.intersects(t2.rect)) {
-                t1.backStep();
-                t2.backStep();
+                t1.back();
+                t2.back();
             }
         }
         return true;

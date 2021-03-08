@@ -36,6 +36,8 @@ public class GameModel {
     public GameModel() {
         //0.初始化坦克
         initTank();
+        //1.初始化墙
+        initWall();
     }
 
     public void add(GameObject go) {
@@ -62,6 +64,12 @@ public class GameModel {
             add(
                     new Tank(50 + i * 100, 200, Dir.DOWN, Group.BAD, this));
         }
+    }
+
+    public void initWall() {
+        add(new Wall(300, 300, 40, 200, this));
+        add(new Wall(800, 300, 40, 200, this));
+        add(new Wall(400, 150, 300, 40, this));
     }
 
 

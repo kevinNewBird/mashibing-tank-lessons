@@ -250,7 +250,7 @@ public class Tank extends GameObject {
     }
 
     //坦克相撞后,回到上一次的位置
-    public void backStep(){
+    public void back(){
         this.x = oldX;
         this.y = oldY;
     }
