@@ -23,7 +23,6 @@ public class Tank extends GameObject {
 
     public Rectangle rect = new Rectangle();
 
-    private int x, y;
     // 记录坦克上一次的移动位置
     public int oldX, oldY;
     private int speed = PropertyMgr.getInt("tankSpeed");
@@ -46,6 +45,8 @@ public class Tank extends GameObject {
     public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
+        this.width = WIDTH;
+        this.height = HEIGHT;
         this.dir = dir;
         this.group = group;
         rect.x = this.x;

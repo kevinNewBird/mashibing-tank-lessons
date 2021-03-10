@@ -24,15 +24,14 @@ public class Explode extends GameObject {
 
     private boolean isLiving;
 
-    //主要用于确认爆炸的位置
-    private int x, y;
-
     private int step;
 
 
     public Explode(int x, int y) {
         this.x = x;
         this.y = y;
+        this.width = WIDTH;
+        this.height = HEIGHT;
         new Audio("audios/explode.wav").start();
         logger.info(String.format("目标(%s,%s)被摧毁!", x, y));
     }

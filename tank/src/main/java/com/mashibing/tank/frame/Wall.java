@@ -10,19 +10,17 @@ import java.awt.*;
  ***********************/
 public class Wall extends GameObject {
     //记录墙的位置坐标
-    int x, y;
     //墙的矩形块
     public Rectangle rect = new Rectangle();
 
     //记录墙体的宽高
-    int w, h;
 
 
     public Wall(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
-        this.w = width;
-        this.h = height;
+        this.width = width;
+        this.height = height;
         rect.x = x;
         rect.y = y;
         rect.width = width;
@@ -33,7 +31,7 @@ public class Wall extends GameObject {
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.GRAY);
-        g.fillRect(x, y, w, h);
+        g.fillRect(x, y, width, height);
         g.setColor(c);
     }
 }

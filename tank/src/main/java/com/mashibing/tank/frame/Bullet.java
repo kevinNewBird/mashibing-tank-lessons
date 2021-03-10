@@ -19,9 +19,6 @@ public class Bullet extends GameObject {
 
     public Group group = Group.BAD;
 
-    //子弹位置
-    private int x, y;
-
     //子弹方向
     private Dir dir;
 
@@ -37,6 +34,8 @@ public class Bullet extends GameObject {
     public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
+        this.width = WIDTH;
+        this.height = HEIGHT;
         this.dir = dir;
         this.group = group;
         rect.x = this.x;
