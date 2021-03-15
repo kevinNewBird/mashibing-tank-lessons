@@ -1,9 +1,15 @@
 package com.mashibing.tank.frame;
 
+import com.mashibing.tank.observer.FireEvent;
+import com.mashibing.tank.observer.IFireObserver;
+import com.mashibing.tank.observer.TankFireObserver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Random;
 
 /***********************
@@ -31,6 +37,8 @@ public class Tank extends GameObject {
     private boolean isLiving = true;
 
     private Group group = Group.BAD;
+
+    public static java.util.List<IFireObserver> observers = Arrays.asList(new TankFireObserver());
 
     //--------------------用于切换坦克的灯光效果------------------
 //    private int step = 0;
@@ -241,6 +249,13 @@ public class Tank extends GameObject {
 //        this.gm.b = new Bullet(bX, bY, this.dir, group, this.gm);
 //
 //        gm.bulletContainer.add(this.gm.b);
+    }
+
+    public void handleFireEvent() {
+        FireEvent event = new FireEvent(new Date().getTime(), this);
+        for (IFireObserver observer : observers) {
+            observer.actionOnFire(event);
+        }
     }
 
     public void die() {
