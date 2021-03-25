@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- services -->
+
+    <bean id="tank" class="com.mashibing.dm.proxy.spring_aop.v1.Tank">
+        <!-- additional collaborators and configuration for this bean go here -->
+    </bean>
+
+    <bean id="timeProxy" class="com.mashibing.dm.proxy.spring_aop.v1.TimeProxy"></bean>
+
+    <!-- more bean definitions for services go here -->
+
+    <aop:config>
+        <aop:aspect id="time" ref="timeProxy">
+            <aop:pointcut id="onmove" expression="execution(void com.mashibing.dm.proxy.spring_aop.v1.Tank.move())"/>
+            <aop:before method="before" pointcut-ref="onmove"/>
+            <aop:after method="after" pointcut-ref="onmove"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

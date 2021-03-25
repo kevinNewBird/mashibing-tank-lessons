@@ -1,11 +1,8 @@
-package com.mashibing.dm.proxy.v05;
-
-import org.springframework.validation.annotation.Validated;
+package com.mashibing.dm.proxy.jdk.v05;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 

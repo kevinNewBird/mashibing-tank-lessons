@@ -1,6 +1,4 @@
-package com.mashibing.dm.proxy.v04;
-
-import com.mashibing.tank.frame.T;
+package com.mashibing.dm.proxy.jdk.v04;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
