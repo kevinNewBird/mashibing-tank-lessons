@@ -23,12 +23,12 @@ public class TomcatFilterChain{
     }
 
 
-    public boolean doFilter(HttpRequest request, HttpResponse response) {
+    public void doFilter(HttpRequest request, HttpResponse response) {
         if (index == filters.size()){
-            return false;
+            return;
         }
         ITomcatFilter f = filters.get(index++);
-        return f.doFilter(request, response, this);
+        f.doFilter(request, response, this);
     }
 
 }

@@ -8,5 +8,5 @@ package com.mashibing.dm.chain.tomcat;
  ***********************/
 public interface ITomcatFilter {
 
-    boolean doFilter(HttpRequest request, HttpResponse response, TomcatFilterChain chain);
+    void doFilter(HttpRequest request, HttpResponse response, TomcatFilterChain chain);
 }

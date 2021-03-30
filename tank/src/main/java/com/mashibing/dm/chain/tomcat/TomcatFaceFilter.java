@@ -13,11 +13,10 @@ public class TomcatFaceFilter implements ITomcatFilter {
 
 
     @Override
-    public boolean doFilter(HttpRequest request, HttpResponse response, TomcatFilterChain chain) {
+    public void doFilter(HttpRequest request, HttpResponse response, TomcatFilterChain chain) {
         request.str = request.str
                 .replace(":)", "^^") + "3";
         chain.doFilter(request, response);
         response.str += "3";
-        return true;
     }
 }
