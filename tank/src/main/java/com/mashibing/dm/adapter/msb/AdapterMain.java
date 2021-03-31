@@ -1,4 +1,4 @@
-package com.mashibing.dm.adapter;
+package com.mashibing.dm.adapter.msb;
 
 
 
