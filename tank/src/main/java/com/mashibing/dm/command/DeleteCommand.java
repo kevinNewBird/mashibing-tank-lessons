@@ -29,4 +29,11 @@ public class DeleteCommand extends Command {
     public void undo() {
         this.content.msg = this.deleted + this.content.msg;
     }
+
+    @Override
+    public void execCommand(CommandChain chain) {
+        doit();
+        chain.execCommand();
+        undo();
+    }
 }

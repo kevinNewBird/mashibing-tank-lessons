@@ -12,4 +12,5 @@ public abstract class Command {
 
     public abstract void undo(); // cancel
 
+    public abstract void execCommand(CommandChain chain);
 }

@@ -13,7 +13,11 @@ public class CommandClient {
     public static void main(String[] args) {
         Content content = new Content();
         content.msg = "我是谁!";
+        execRun1(content);
+        System.out.println(content.msg);
+    }
 
+    private static void execRun0(Content content) {
         /*----copy----*/
         CopyCommand cc = new CopyCommand(content);
         cc.doit();
@@ -37,5 +41,13 @@ public class CommandClient {
         dc.undo();
         System.out.println(content.msg);
         Optional.of("----------------delete------------------").ifPresent(System.out::println);
+    }
+
+    private static void execRun1(Content content) {
+        CommandChain chain = new CommandChain();
+        chain.add(new CopyCommand(content))
+                .add(new InsertCommand(content))
+                .add(new DeleteCommand(content));
+        chain.execCommand();
     }
 }

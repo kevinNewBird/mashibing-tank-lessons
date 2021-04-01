@@ -29,4 +29,11 @@ public class CopyCommand extends Command {
     public void undo() {
         this.content.msg = this.content.msg.substring(0, this.content.msg.length() - insertConMsg.length());
     }
+
+    @Override
+    public void execCommand(CommandChain chain) {
+        doit();
+        chain.execCommand();
+        undo();
+    }
 }
