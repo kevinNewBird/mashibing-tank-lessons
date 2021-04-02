@@ -1,6 +1,7 @@
 package com.mashibing.tank.frame;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /***********************
  * @Description: 游戏物体父类(所有的游戏物体都继承该父类)<BR>
@@ -8,7 +9,7 @@ import java.awt.*;
  * @since: 2021/3/3 23:51
  * @version: 1.0
  ***********************/
-public abstract class GameObject {
+public abstract class GameObject implements Serializable {
 
     //抽象一个父类,最重要的就是提炼公共属性和方法
     /**
@@ -20,7 +21,7 @@ public abstract class GameObject {
      * ...
      */
 
-    public int x, y,width,height;
+    public int x, y, width, height;
 
     public abstract void paint(Graphics g);
 

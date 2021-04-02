@@ -6,6 +6,7 @@ import com.mashibing.tank.cor.ColliderChain;
 import com.mashibing.tank.cor.TankTankCollider;
 
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 
 /***********************
@@ -30,7 +31,7 @@ public class GameModel {
         getInstance().init();
     }
 
-    private void init(){
+    private void init() {
         //0.初始化坦克
         initTank();
         //1.初始化墙
@@ -179,4 +180,39 @@ public class GameModel {
     }
 
 
+    private static final String DISK_SAVING_FILE_PATH = "tank.data";
+
+    /**
+     * Description: 当前游戏存盘 <BR>
+     *
+     * @param :
+     * @return
+     * @author zhao.song    2021/4/2 16:16
+     */
+    public void saveDisk() {
+        File diskPath = new File(DISK_SAVING_FILE_PATH);
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(diskPath))) {
+            oos.writeObject(mainTank);
+            oos.writeObject(objects);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Description: 游戏读盘 <BR>
+     *
+     * @param :
+     * @return
+     * @author zhao.song    2021/4/2 16:16
+     */
+    public void loadDisk() {
+        File diskPath = new File(DISK_SAVING_FILE_PATH);
+        try (ObjectInputStream oos = new ObjectInputStream(new FileInputStream(diskPath))) {
+            mainTank = (Tank) oos.readObject();
+            objects = (java.util.List<GameObject>) oos.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

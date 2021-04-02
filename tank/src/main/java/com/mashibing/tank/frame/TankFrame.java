@@ -139,6 +139,14 @@ public class TankFrame extends Frame {
                     gm.getMainTank().handleFireEvent();
 //                    bulletContainer.add(b);
                     break;
+                case KeyEvent.VK_S:
+                    //存盘
+                    gm.saveDisk();
+                    break;
+                case KeyEvent.VK_L:
+                    //载入存盘
+                    gm.loadDisk();
+                    break;
                 default:
                     break;
             }
