@@ -14,6 +14,7 @@ import java.io.IOException;
 public class FileTest {
 
     public static void main(String[] args) throws IOException {
+        System.out.println(StudioQueryCondition.ALL.equals(StudioQueryCondition.ALL));
 
         //txt文档的文件头不固定
         File file = new File("C:\\Users\\Kevin\\Desktop\\Java学习链接地址.txt");
@@ -25,6 +26,17 @@ public class FileTest {
         System.out.println(fileCode);
 
 
+    }
+    /**
+     * 查询场景枚举
+     */
+    public enum StudioQueryCondition {
+        // 0.获取所有工作室
+        ALL,
+        // 1.获取自己所在的工作室
+        MINE,
+        // 2.获取自己不在的工作室
+        EXCLUDE_MINE
     }
 
     private static byte[] readInputStreamAt(FileInputStream fis, long skiplength, int length) throws IOException {
