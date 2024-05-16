@@ -18,6 +18,7 @@ public class TestString {
         System.out.println(s1 == s2);
         System.out.println(s1 == s3);
         System.out.println(s3 == s4);
+        // intern()：从字符串池中取出数据
         System.out.println(s3.intern() == s1);
         System.out.println(s3.intern() == s4.intern());
     }

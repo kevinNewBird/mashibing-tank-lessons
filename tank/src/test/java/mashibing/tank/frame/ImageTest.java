@@ -8,10 +8,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -24,9 +22,36 @@ import static org.junit.Assert.fail;
  ***********************/
 public class ImageTest {
 
+    private Map<String, Object> map = new HashMap<String,Object>(){
+        {
+            put("a", 1);
+            put("b", 2);
+        }
+    };
+
+    @Test
+    public void testLock() throws IOException, InterruptedException {
+        new Thread(() -> {
+            synchronized (this.map) {
+                try {
+                    System.out.println("上锁成功！");
+                    TimeUnit.SECONDS.sleep(20);
+                    System.out.println("持有锁20s！");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+
+        TimeUnit.SECONDS.sleep(3);
+        System.out.println("主线程结束休眠，确保线程优先获取锁！");
+        System.out.println(this.map.get("a"));
+        System.in.read();
+    }
+
     @Test
     public void test() {
-
 
 
         try {
@@ -40,7 +65,7 @@ public class ImageTest {
 //                    .getResourceAsStream("images/0.gif"));
 //            assertNotNull(bi);
             ArrayList<Integer> list = new ArrayList<>();
-            Collections.addAll(list, 1, 2, 4, 5, 6, 7, 8, 10,12);
+            Collections.addAll(list, 1, 2, 4, 5, 6, 7, 8, 10, 12);
             int pointsDataLimit = 2;
             int size = list.size();
             // 判断是否有必要分批

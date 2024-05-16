@@ -14,6 +14,8 @@ public class Computer {
     }
 
     public static void main(String[] args) {
+        System.out.println(18 & 255);
+        System.out.println(18 & 252);
         PersonalVisitor p = new PersonalVisitor();
         Computer computer = new Computer();
         computer.accept(p);

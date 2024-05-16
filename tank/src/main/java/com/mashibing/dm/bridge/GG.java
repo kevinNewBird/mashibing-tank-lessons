@@ -23,4 +23,10 @@ public class GG {
     private void give(MM mm, Gift gift) {
         System.out.println(gift + "gived!");
     }
+
+    public static void main(String[] args) {
+        final MM mm = new MM();
+        mm.name = "美美";
+        new GG().chase(mm);
+    }
 }
