@@ -1,0 +1,21 @@
+package com.mashibing.dm_old.chain.tomcat;
+
+/***********************
+ * @Description: 富文本过滤器 <BR>
+ * @author: zhao.song
+ * @since: 2021/2/20 1:26
+ * @version: 1.0
+ ***********************/
+public class TomcatHTMLFilter implements ITomcatFilter {
+
+
+    @Override
+    public void doFilter(HttpRequest request, HttpResponse response, TomcatFilterChain chain) {
+        request.str = request.str
+                .replace("<", "[")
+                .replace(">", "]")
+                + "1";
+        chain.doFilter(request, response);
+        response.str += "1";
+    }
+}

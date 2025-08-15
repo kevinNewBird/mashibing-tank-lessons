@@ -6,11 +6,11 @@
 
     <!-- services -->
 
-    <bean id="tank" class="com.mashibing.dm.proxy.spring_aop.v2.Tank">
+    <bean id="tank" class="com.mashibing.dm_old.proxy.spring_aop.v2.Tank">
         <!-- additional collaborators and configuration for this bean go here -->
     </bean>
 
-    <bean id="timeProxy" class="com.mashibing.dm.proxy.spring_aop.v2.TimeProxy"></bean>
+    <bean id="timeProxy" class="com.mashibing.dm_old.proxy.spring_aop.v2.TimeProxy"></bean>
 
     <!-- more bean definitions for services go here -->
 
