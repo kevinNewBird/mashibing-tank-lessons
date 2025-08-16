@@ -1,6 +1,6 @@
-package com.mashibing.dm.adapter.pattern;
+package com.mashibing.dm.adapter.demo1.pattern;
 
-import com.mashibing.dm.adapter.base.db.LogDbOperate;
+import com.mashibing.dm.adapter.demo1.base.db.LogDbOperate;
 
 public class LogFileToDbAdapterTest {
 

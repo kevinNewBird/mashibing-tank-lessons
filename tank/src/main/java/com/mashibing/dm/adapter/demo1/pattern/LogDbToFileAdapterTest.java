@@ -1,9 +1,9 @@
-package com.mashibing.dm.adapter.pattern;
+package com.mashibing.dm.adapter.demo1.pattern;
 
-import com.mashibing.dm.adapter.base.db.LogDbOperate;
-import com.mashibing.dm.adapter.base.domain.LogModel;
-import com.mashibing.dm.adapter.base.file.LogFileOperate;
-import com.mashibing.dm.adapter.base.file.LogFileOperateApi;
+import com.mashibing.dm.adapter.demo1.base.db.LogDbOperate;
+import com.mashibing.dm.adapter.demo1.base.domain.LogModel;
+import com.mashibing.dm.adapter.demo1.base.file.LogFileOperate;
+import com.mashibing.dm.adapter.demo1.base.file.LogFileOperateApi;
 
 public class LogDbToFileAdapterTest {
 

@@ -1,6 +1,6 @@
-package com.mashibing.dm.adapter.base.db;
+package com.mashibing.dm.adapter.demo1.base.db;
 
-import com.mashibing.dm.adapter.base.domain.LogModel;
+import com.mashibing.dm.adapter.demo1.base.domain.LogModel;
 
 import java.util.List;
 

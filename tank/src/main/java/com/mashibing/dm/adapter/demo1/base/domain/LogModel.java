@@ -1,4 +1,4 @@
-package com.mashibing.dm.adapter.base.domain;
+package com.mashibing.dm.adapter.demo1.base.domain;
 
 import java.io.Serializable;
 

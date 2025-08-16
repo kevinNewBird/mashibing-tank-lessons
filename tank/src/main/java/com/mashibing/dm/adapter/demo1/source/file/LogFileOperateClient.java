@@ -1,7 +1,7 @@
-package com.mashibing.dm.adapter.source.file;
+package com.mashibing.dm.adapter.demo1.source.file;
 
-import com.mashibing.dm.adapter.base.file.LogFileOperate;
-import com.mashibing.dm.adapter.base.domain.LogModel;
+import com.mashibing.dm.adapter.demo1.base.file.LogFileOperate;
+import com.mashibing.dm.adapter.demo1.base.domain.LogModel;
 
 import java.util.Collections;
 import java.util.List;

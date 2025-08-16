@@ -1,7 +1,7 @@
-package com.mashibing.dm.adapter.source.db;
+package com.mashibing.dm.adapter.demo1.source.db;
 
-import com.mashibing.dm.adapter.base.db.LogDbOperate;
-import com.mashibing.dm.adapter.base.domain.LogModel;
+import com.mashibing.dm.adapter.demo1.base.db.LogDbOperate;
+import com.mashibing.dm.adapter.demo1.base.domain.LogModel;
 
 /***********************
  * @Description: 数据库管理日志客户端 <BR>
