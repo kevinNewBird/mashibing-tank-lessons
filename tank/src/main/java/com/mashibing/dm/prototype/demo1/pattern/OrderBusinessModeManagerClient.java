@@ -3,11 +3,14 @@ package com.mashibing.dm.prototype.demo1.pattern;
 import com.mashibing.dm.prototype.demo1.pattern.adapter.PersonalOrderAdapter;
 import com.mashibing.dm.prototype.demo1.pattern.manger.OrderManager;
 
+import java.util.Objects;
+
 public class OrderBusinessModeManagerClient {
 
     public static void main(String[] args) {
         //  1.使用原型管理器
-        PersonalOrderAdapter op = OrderManager.getOrder("Personal", PersonalOrderAdapter.class);
+        PersonalOrderAdapter op = (PersonalOrderAdapter) Objects.requireNonNull(OrderManager.getOrder("Personal", PersonalOrderAdapter.class))
+                .cloneOrder();
 
         assert op != null;
         // 2.设置个人订单数据
