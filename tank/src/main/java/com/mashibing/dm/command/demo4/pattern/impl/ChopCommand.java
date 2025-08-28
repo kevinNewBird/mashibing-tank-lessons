@@ -16,16 +16,6 @@ public class ChopCommand implements Command {
     private CookApi cookApi;
 
     /**
-     * 点菜桌号
-     */
-    private int tableNum;
-
-
-    public ChopCommand(int tableNum) {
-        this.tableNum = tableNum;
-    }
-
-    /**
      * 设置具体做菜的厨师对象
      *
      * @param cookApi： 具体做菜的厨师对象
@@ -35,12 +25,7 @@ public class ChopCommand implements Command {
     }
 
     @Override
-    public int getTableNum() {
-        return tableNum;
-    }
-
-    @Override
     public void execute() {
-        this.cookApi.cook(this.tableNum, "绿豆排骨煲");
+        this.cookApi.cook("绿豆排骨煲");
     }
 }

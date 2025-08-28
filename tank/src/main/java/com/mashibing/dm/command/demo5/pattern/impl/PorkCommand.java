@@ -1,4 +1,4 @@
-package com.mashibing.dm.command.demo3.pattern.impl;
+package com.mashibing.dm.command.demo5.pattern.impl;
 
 /**
  * description：命令对象，李庄白肉
@@ -24,8 +24,22 @@ public class PorkCommand implements Command {
         this.cookApi = cookApi;
     }
 
+    public PorkCommand(int tableNum) {
+        this.tableNum = tableNum;
+    }
+
+    /**
+     * 点菜桌号
+     */
+    private int tableNum;
+
+    @Override
+    public int getTableNum() {
+        return tableNum;
+    }
+
     @Override
     public void execute() {
-        this.cookApi.cook("李庄白肉");
+        this.cookApi.cook(this.tableNum, "李庄白肉");
     }
 }

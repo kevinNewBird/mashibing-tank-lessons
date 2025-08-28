@@ -24,22 +24,8 @@ public class DuckCommand implements Command {
         this.cookApi = cookApi;
     }
 
-    public DuckCommand(int tableNum) {
-        this.tableNum = tableNum;
-    }
-
-    /**
-     * 点菜桌号
-     */
-    private int tableNum;
-
-    @Override
-    public int getTableNum() {
-        return tableNum;
-    }
-
     @Override
     public void execute() {
-        this.cookApi.cook(this.tableNum, "酸菜老鸭汤");
+        this.cookApi.cook("酸菜老鸭汤");
     }
 }

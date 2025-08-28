@@ -24,22 +24,8 @@ public class PorkCommand implements Command {
         this.cookApi = cookApi;
     }
 
-    public PorkCommand(int tableNum) {
-        this.tableNum = tableNum;
-    }
-
-    /**
-     * 点菜桌号
-     */
-    private int tableNum;
-
-    @Override
-    public int getTableNum() {
-        return tableNum;
-    }
-
     @Override
     public void execute() {
-        this.cookApi.cook(this.tableNum, "李庄白肉");
+        this.cookApi.cook("李庄白肉");
     }
 }

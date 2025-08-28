@@ -1,4 +1,4 @@
-package com.mashibing.dm.command.demo4.pattern.impl;
+package com.mashibing.dm.command.demo5.pattern.impl;
 
 /**
  * description：用来控制诗序需要创建厨师

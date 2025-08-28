@@ -1,4 +1,4 @@
-package com.mashibing.dm.command.demo2.pattern.impl;
+package com.mashibing.dm.command.demo3.pattern.impl;
 
 /**
  * description：具体减法的命令实现对象
@@ -8,12 +8,7 @@ package com.mashibing.dm.command.demo2.pattern.impl;
  * @company 北京海量数据有限公司
  * @date 2025/8/27 23:12
  */
-public class SubstractCommand implements Command{
-
-    /**
-     * 持有具体执行计算的对象
-     */
-    private OperationApi operation;
+public class SubstractCommand extends AbstractCommand {
 
     /**
      * 操作的数据，也就是要减去的数据
@@ -21,7 +16,7 @@ public class SubstractCommand implements Command{
     private int oprNum;
 
     public SubstractCommand(OperationApi operation, int oprNum) {
-        this.operation = operation;
+        super(operation);
         this.oprNum = oprNum;
     }
 
@@ -29,17 +24,5 @@ public class SubstractCommand implements Command{
     public void execute() {
         // 转调接收者去真正执行功能
         this.operation.substract(this.oprNum);
-    }
-
-    @Override
-    public void undo() {
-        // 转调接收者去真正执行功能
-        // 命令本身是做减法，那么撤销的时候就是做加法了
-        this.operation.add(oprNum);
-    }
-
-    @Override
-    public void redo() {
-        execute();
     }
 }

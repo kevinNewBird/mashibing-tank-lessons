@@ -19,4 +19,9 @@ public interface Command {
      * 执行撤销命令对应的操作
      */
     void undo();
+
+    /**
+     * 恢复操作
+     */
+    void redo();
 }

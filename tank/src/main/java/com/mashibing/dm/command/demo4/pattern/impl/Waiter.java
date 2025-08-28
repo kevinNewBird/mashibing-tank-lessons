@@ -23,7 +23,21 @@ public class Waiter {
      * @param cmd：客户点的菜，每道菜是一个命令对象
      */
     public void orderDish(Command cmd) {
-        // 1.添加到菜单中
+        // 客户传过来的命令对象时没有和接收者组装的
+        // 1.组装
+        HotCook hotCook = new HotCook();
+        CoolCook coolCook = new CoolCook();
+
+        // 判断是组合热菜师傅还是凉菜师傅
+        if (cmd instanceof ChopCommand) {
+            ((ChopCommand) cmd).setCookApi(hotCook);
+        } else if (cmd instanceof DuckCommand) {
+            ((DuckCommand) cmd).setCookApi(hotCook);
+        } else if (cmd instanceof PorkCommand) {
+            ((PorkCommand) cmd).setCookApi(coolCook);
+        }
+
+        // 2.添加到菜单中
         menuCommand.addCommand(cmd);
     }
 

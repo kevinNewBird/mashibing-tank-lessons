@@ -1,8 +1,8 @@
-package com.mashibing.dm.command.demo3.pattern;
+package com.mashibing.dm.command.demo4.pattern;
 
-import com.mashibing.dm.command.demo3.pattern.impl.ChopCommand;
-import com.mashibing.dm.command.demo3.pattern.impl.PorkCommand;
-import com.mashibing.dm.command.demo3.pattern.impl.Waiter;
+import com.mashibing.dm.command.demo4.pattern.impl.ChopCommand;
+import com.mashibing.dm.command.demo4.pattern.impl.PorkCommand;
+import com.mashibing.dm.command.demo4.pattern.impl.Waiter;
 
 /**
  * description：服务员客户端

@@ -1,8 +1,6 @@
-package com.mashibing.dm.command.demo4.pattern;
+package com.mashibing.dm.command.demo5.pattern;
 
-import com.mashibing.dm.command.demo4.pattern.impl.*;
-
-import java.util.concurrent.TimeUnit;
+import com.mashibing.dm.command.demo5.pattern.impl.*;
 
 /**
  * description：队列请求客户端

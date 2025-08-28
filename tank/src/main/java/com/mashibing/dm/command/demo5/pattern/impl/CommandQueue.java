@@ -1,9 +1,8 @@
-package com.mashibing.dm.command.demo4.pattern.impl;
+package com.mashibing.dm.command.demo5.pattern.impl;
 
 
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.SynchronousQueue;
 
 /**
  * description：命令队列类

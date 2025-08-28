@@ -79,7 +79,7 @@ public class Calculator {
     public void pressRedo() {
         if (redoCmds.size() > 0) {
             Command redoCmd = redoCmds.get(redoCmds.size() - 1);
-            redoCmd.execute();
+            redoCmd.redo();
 
             // 把这个命令记录到可撤销历史记录里
             undoCmds.add(redoCmd);

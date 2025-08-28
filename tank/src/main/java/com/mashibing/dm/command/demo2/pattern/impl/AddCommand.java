@@ -37,4 +37,9 @@ public class AddCommand implements Command{
         // 命令本身是做加法，那么撤销的时候就是做减法了
         this.operation.substract(oprNum);
     }
+
+    @Override
+    public void redo() {
+        execute();
+    }
 }

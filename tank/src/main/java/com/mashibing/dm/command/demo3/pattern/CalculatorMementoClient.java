@@ -1,9 +1,9 @@
-package com.mashibing.dm.command.demo2.pattern;
+package com.mashibing.dm.command.demo3.pattern;
 
-import com.mashibing.dm.command.demo2.pattern.impl.AddCommand;
-import com.mashibing.dm.command.demo2.pattern.impl.Calculator;
-import com.mashibing.dm.command.demo2.pattern.impl.Operation;
-import com.mashibing.dm.command.demo2.pattern.impl.SubstractCommand;
+import com.mashibing.dm.command.demo3.pattern.impl.AddCommand;
+import com.mashibing.dm.command.demo3.pattern.impl.Calculator;
+import com.mashibing.dm.command.demo3.pattern.impl.Operation;
+import com.mashibing.dm.command.demo3.pattern.impl.SubstractCommand;
 
 /**
  * description：计算器客户端
@@ -13,7 +13,7 @@ import com.mashibing.dm.command.demo2.pattern.impl.SubstractCommand;
  * @company 北京海量数据有限公司
  * @date 2025/8/27 23:31
  */
-public class CalculatorClient {
+public class CalculatorMementoClient {
 
     public static void main(String[] args) {
         // 1.组装命令和接收者
