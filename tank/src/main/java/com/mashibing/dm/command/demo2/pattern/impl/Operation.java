@@ -33,7 +33,7 @@ public class Operation implements OperationApi {
     }
 
     @Override
-    public void substract(int num) {
+    public void subtract(int num) {
         // 实现减法的功能
         result -= num;
     }

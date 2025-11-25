@@ -35,7 +35,7 @@ public class AddCommand implements Command{
     public void undo() {
         // 转调接收者去真正执行功能
         // 命令本身是做加法，那么撤销的时候就是做减法了
-        this.operation.substract(oprNum);
+        this.operation.subtract(oprNum);
     }
 
     @Override

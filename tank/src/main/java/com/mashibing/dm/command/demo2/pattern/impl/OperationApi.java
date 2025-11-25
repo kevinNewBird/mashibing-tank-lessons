@@ -1,7 +1,7 @@
 package com.mashibing.dm.command.demo2.pattern.impl;
 
 /**
- * description：操作运算的接口
+ * description：操作运算的接口 -- 接收者receiver
  *
  * @author zhaosong
  * @version 1.0
@@ -32,5 +32,5 @@ public interface OperationApi {
      * 执行减法
      * @param num：需要减的数
      */
-    void substract(int num);
+    void subtract(int num);
 }

@@ -63,7 +63,8 @@ public class VoteManager {
      * @param voteItem：投票的选项
      */
     public void vote(String user, String voteItem) {
-        // 1.先为该用户增加投票的次数
+        // todo 1.先为该用户增加投票的次数，可以考虑抽取到状态实现中
+        // todo 如需放在外面需考虑值溢出的问题，对值最大值进行限制，避免恶意突破底层逻辑
         // 从记录中取出已有的投票次数
         Integer oldVoteCount = mapVoteCount.get(user);
         if (null == oldVoteCount) {

@@ -23,6 +23,8 @@ public class LeaveRequestClient {
 
         // 2.创建上下文对象
         LeaveRequestContext lrc = new LeaveRequestContext();
+        // todo 如果流程固定，可以考虑整合到构造方法中；
+        // todo 使用set方法的好处是，可通过传入不同的状态实现不同身份请求者的不同工作流控制
         lrc.setBusinessVO(lrm);
         lrc.setState(new ProjectManagerState());
 

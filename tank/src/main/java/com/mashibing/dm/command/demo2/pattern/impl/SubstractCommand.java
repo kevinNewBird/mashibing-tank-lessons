@@ -28,7 +28,7 @@ public class SubstractCommand implements Command{
     @Override
     public void execute() {
         // 转调接收者去真正执行功能
-        this.operation.substract(this.oprNum);
+        this.operation.subtract(this.oprNum);
     }
 
     @Override
